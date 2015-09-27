@@ -1,0 +1,5 @@
+com.spilna.sprava.controller
+com.spilna.sprava.dao
+com.spilna.sprava.init
+com.spilna.sprava.model
+com.spilna.sprava.service
