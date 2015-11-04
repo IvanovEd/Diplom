@@ -6,7 +6,9 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -269,8 +271,20 @@ public class FacebookController {
 		return new ModelAndView("redirect:/post.html");// redirected
 
 	}
-	
-	public void setAccessToken(String token) {
+
+    @RequestMapping(value = "/ukrainMap", method = RequestMethod.GET)
+    public ModelAndView lookMap()
+            throws IOException {
+        ModelAndView modelAndView = new ModelAndView("ukrainMap");
+        Map<String, String> map = new HashMap<>();
+        map.put("kuyiv", "80");
+        modelAndView.addObject("values", map);
+
+        return modelAndView;
+
+    }
+
+    public void setAccessToken(String token) {
 		this.accessToken = token;
 	}
 

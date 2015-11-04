@@ -56,6 +56,10 @@ input {
 	        // logs out of Facebook, if they've logged in with Facebook.
 	        window.location.href = "/signin";
 	    }
+
+    function newDoc() {
+        window.location.assign("http://localhost:8080/ukrainMap")
+    }
 	
   
 </script>
@@ -111,6 +115,7 @@ input {
 
 			<p>
 				<input type="button" value="Logout" onclick="logout()">
+                <input type="button" value="Load new document" onclick="newDoc()">
 			</p>
 		</form:form>
 	</center>
