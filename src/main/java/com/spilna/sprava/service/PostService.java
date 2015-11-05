@@ -21,4 +21,8 @@ public interface PostService {
 	/**Obtaining records the number of records the user*/
 	public Integer getCountPost(String idUser);
 
+    public void updatePost(PostInf postInf);
+
+    public PostInf getPostByID(int id);
+
 }

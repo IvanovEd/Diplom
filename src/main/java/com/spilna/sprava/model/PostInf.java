@@ -1,9 +1,6 @@
 package com.spilna.sprava.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Description of the table "message"
@@ -32,6 +29,10 @@ public class PostInf {
 
 	@Column(name = "message")
 	private String post;
+
+    private InterestOfPost interestOfPost = new InterestOfPost();
+
+    public PostInf() {}
 
 	// implementation of methods getters and setters
 
@@ -66,4 +67,13 @@ public class PostInf {
 		this.post = post;
 	}
 
+    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    @JoinColumn(name="post_id")
+    public InterestOfPost getInterestOfPost() {
+        return interestOfPost;
+    }
+
+    public void setInterestOfPost(InterestOfPost interestOfPost) {
+        this.interestOfPost = interestOfPost;
+    }
 }

@@ -7,10 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.spilna.sprava.model.PostRO;
-import org.hibernate.Criteria;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -145,4 +142,37 @@ public class PostDAOImpl implements PostDAO {
         return Integer.parseInt(g.substring(1, g.indexOf(']')));
     }
 
+    @Override
+    public void updatePost(PostInf postInf) {
+        Transaction transaction = null;
+        try {
+            Session session = openSession();
+            transaction = session.beginTransaction();
+            session.update(postInf);
+            transaction.commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        }
+    }
+
+    @Override
+    public PostInf getPostByID(int id) {
+        Transaction transaction = null;
+        PostInf postInf = null;
+        try {
+            Session session = openSession();
+            transaction = session.beginTransaction();
+            postInf = (PostInf) session.get(PostInf.class, id);
+            transaction.commit();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        }
+        return postInf;
+    }
 }

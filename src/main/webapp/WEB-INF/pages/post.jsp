@@ -60,9 +60,9 @@ input {
     function newDoc() {
         window.location.assign("http://localhost:8080/ukrainMap")
     }
-	function selectInterest(e, id) {
-		window.location.assign("http://localhost:8080/selectInterest/id=" + id)
-	}
+    function Redirect(id, interes) {
+        window.location="http://localhost:8080/selectInterest?id="+id;
+    }
 	
   
 </script>
@@ -113,7 +113,8 @@ input {
 								<display:column property="post" title="Post" sortable="true"
 									style="border: 1px solid teal; " />
 								<display:column title="Action">
-									<a href="http://localhost:8080/selectInterest?id=${row.id}">Edit</a>
+									<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=1">Politics</a>
+                                    <a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2">Music</a>
 								</display:column>
 							</display:table>
 

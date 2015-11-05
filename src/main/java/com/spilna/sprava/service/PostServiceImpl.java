@@ -43,4 +43,14 @@ public class PostServiceImpl implements PostService {
 		return messageDAO.getCountPost(idUser);
 	}
 
+    @Override
+    public void updatePost(PostInf postInf){
+        messageDAO.updatePost(postInf);
+    }
+
+    @Override
+    public PostInf getPostByID(int id){
+       return messageDAO.getPostByID(id);
+    }
+
 }

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.restfb.FacebookClient;
 import com.restfb.Parameter;
 import com.restfb.types.Post;
+import com.spilna.sprava.businesslogic.objects.Interest;
 import com.spilna.sprava.model.PostRO;
 import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -286,10 +287,11 @@ public class FacebookController {
     }
 
 	@RequestMapping(value = "/selectInterest", method = RequestMethod.GET)
-	public ModelAndView select(@RequestParam String id) throws IOException {
+	public ModelAndView select(@RequestParam String id,@RequestParam String interest) throws IOException {
 		ModelAndView modelAndView = new ModelAndView("ukrainMap");
-
-
+        PostInf postInf = messageService.getPostByID(Integer.valueOf(id));
+        postInf.getInterestOfPost().setInterest(interest);
+        messageService.updatePost(postInf);
 		return modelAndView;
 
 	}
