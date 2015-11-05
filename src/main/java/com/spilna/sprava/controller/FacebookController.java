@@ -24,6 +24,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.restfb.DefaultFacebookClient;
@@ -283,6 +284,15 @@ public class FacebookController {
         return modelAndView;
 
     }
+
+	@RequestMapping(value = "/selectInterest", method = RequestMethod.GET)
+	public ModelAndView select(@RequestParam String id) throws IOException {
+		ModelAndView modelAndView = new ModelAndView("ukrainMap");
+
+
+		return modelAndView;
+
+	}
 
     public void setAccessToken(String token) {
 		this.accessToken = token;

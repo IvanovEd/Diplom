@@ -60,6 +60,9 @@ input {
     function newDoc() {
         window.location.assign("http://localhost:8080/ukrainMap")
     }
+	function selectInterest(e, id) {
+		window.location.assign("http://localhost:8080/selectInterest/id=" + id)
+	}
 	
   
 </script>
@@ -87,6 +90,7 @@ input {
 		<!-- After saving the message is redirected /savePost -->
 		
 		<c:url var="userMessage" value="savePost.html" />
+		<s:url id="editReport" action="selectInterest" />
 		<form:form id="messageForm" modelAttribute="post" method="post"
 			action="${userMessage}">
 			<table width="400px" height="150px">
@@ -102,13 +106,17 @@ input {
 						</form> <br>
 						<!-- a table that shows a limited number of records -->
 						<center>
-							<display:table name="post" requestURI="" pagesize="10"
+							<display:table id="row" name="post" requestURI="" pagesize="10"
 								export="true">
 								<display:column property="id" title="Id" sortable="true"
 									style="border: 1px solid teal;  " />
 								<display:column property="post" title="Post" sortable="true"
 									style="border: 1px solid teal; " />
+								<display:column title="Action">
+									<a href="http://localhost:8080/selectInterest?id=${row.id}">Edit</a>
+								</display:column>
 							</display:table>
+
 						</center></td>
 				</tr>
 			</table>
