@@ -12,10 +12,10 @@ public class InterestOfPost {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private String id;
-    @Column(name = "post_id")// Definition of the column name
-    private String idPost;
     private String interest;
-    private PostInf postInf = new PostInf();
+    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    @JoinColumn(name="post_id")
+    private PostInf postInf;
 
     public InterestOfPost() {}
 
@@ -27,14 +27,6 @@ public class InterestOfPost {
         this.id = id;
     }
 
-    public String getIdPost() {
-        return idPost;
-    }
-
-    public void setIdPost(String idPost) {
-        this.idPost = idPost;
-    }
-
     public String getInterest() {
         return interest;
     }
@@ -43,8 +35,6 @@ public class InterestOfPost {
         this.interest = interest;
     }
 
-    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-    @JoinColumn(name="id_post")
     public PostInf getPostInf() {
         return postInf;
     }

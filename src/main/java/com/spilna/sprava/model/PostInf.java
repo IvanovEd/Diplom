@@ -29,8 +29,8 @@ public class PostInf {
 
 	@Column(name = "message")
 	private String post;
-
-    private InterestOfPost interestOfPost = new InterestOfPost();
+    @OneToOne(mappedBy = "postInf")
+    private InterestOfPost interestOfPost;
 
     public PostInf() {}
 
@@ -67,8 +67,7 @@ public class PostInf {
 		this.post = post;
 	}
 
-    @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-    @JoinColumn(name="post_id")
+
     public InterestOfPost getInterestOfPost() {
         return interestOfPost;
     }
