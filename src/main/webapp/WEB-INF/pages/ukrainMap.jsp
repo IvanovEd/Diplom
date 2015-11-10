@@ -18,9 +18,33 @@
 
 
         function drawRegionsMap() {
-            var sumskaVal;
+            var kuyivska,zakarpatska;
+//                    ,odesska,vinnitska,lvivska,ivanofrankivska,zhitomerska,harkiv,sumska,donetska,luhanska,mikolaivska,volinska,chernigivska,cherkaska,zakarpatska,zaporizhska,kirovogradska,ternopilska,hmelnitska,dnipropetrovska,poltavska,rivnenska,hersonska,chernivetska;
             <c:if test="${!empty values}">
-            sumskaVal = ${values["kuyiv"]}
+                    <%--kuyivska = ${values["kuyivska"]},--%>
+                    <%--odesska = ${values["odesska"]},--%>
+                    <%--vinnitska = ${values["vinnitska"]},--%>
+                    <%--lvivska = ${values["lvivska"]},--%>
+                    <%--ivanofrankivska = ${values["ivanofrankivska"]},--%>
+                    <%--zhitomerska = ${values["zhitomerska"]},--%>
+                    <%--harkiv = ${values["harkiv"]},--%>
+                    <%--sumska = ${values["sumska"]},--%>
+                    <%--donetska = ${values["donetska"]},--%>
+                    <%--luhanska = ${values["luhanska"]},--%>
+                    <%--mikolaivska = ${values["mikolaivska"]},--%>
+                    <%--volinska = ${values["volinska"]},--%>
+                    <%--chernigivska = ${values["chernigivska"]},--%>
+                    <%--cherkaska = ${values["cherkaska"]},--%>
+                    zakarpatska = ${values["zakarpatska"]},
+                    <%--zaporizhska = ${values["zaporizhska"]},--%>
+                    <%--kirovogradska = ${values["kirovogradska"]},--%>
+                    <%--ternopilska = ${values["ternopilska"]},--%>
+                    <%--hmelnitska = ${values["hmelnitska"]},--%>
+                    <%--dnipropetrovska = ${values["dnipropetrovska"]},--%>
+                    <%--poltavska = ${values["poltavska"]},--%>
+                    <%--rivnenska = ${values["rivnenska"]},--%>
+                    hersonska = ${values["hersonska"]}
+                   /* chernivetska = ${values["chernivetska"]};*/
             <%--<c:forEach items="${values}" var="val">--%>
 
             <%--sumskaVal = ${val["kuyiv"]}--%>
@@ -28,43 +52,33 @@
             </c:if>
             var data = google.visualization.arrayToDataTable([
                 ['City', 'Site'],
-                ['khersons\'ka oblast\'', 1],
-                ['sevastopol\'', sevastopol],
-                ['zakarpats\'ka oblast\'', sevastopol],
-                ['respublika krym', sevastopol],
-                ['odes \'ka oblast\'', sevastopol],
-                ['sums \'ka oblast\'', sevastopol],
-                ['rivnens\'ka oblast\'', sevastopol],
-                ['khmel\'nyts\'ka oblast\'', sevastopol],
-                ['ivano-frankivs\'ka oblast\'', sevastopol],
-                ['poltavs\'ka oblast\'', sevastopol],
-                ['kharkivs\'ka oblast\'', sevastopol],
-                ['zhytomyrs\'ka oblast\'', sevastopol],
-                ['ternopil\'s\'ka oblast\'', sevastopol],
-                ['cherkas\'ka oblast\'', sevastopol],
-                ['zaporiz\'ka oblast\'', sevastopol],
-                ['luhans\'ka oblast\'', sevastopol],
-                ['vinnyts\'ka oblast\'', sevastopol],
-                ['donets\'ka oblast\'', sevastopol],
-                ['l\'vivs\'ka oblast\'', sevastopol],
-                ['volyns\'ka oblast\'', sevastopol],
-                ['dnipropetrovs\'ka oblast\'', sevastopol],
-                ['mykola\u00efvs\'ka oblast\'', sevastopol],
-                ['kirovohrads\'ka oblast\'', sevastopol]
+                ['khersons\'ka oblast\'', hersonska],
+                ['zakarpats\'ka oblast\'', zakarpatska]
+////                ['respublika krym', ],
+//                ['odes \'ka oblast\'', odesska],
+//                ['sums \'ka oblast\'', sumska],
+//                ['rivnens\'ka oblast\'', rivnenska],
+//                ['khmel\'nyts\'ka oblast\'', hmelnitska],
+//                ['ivano-frankivs\'ka oblast\'', ivanofrankivska],
+//                ['poltavs\'ka oblast\'', poltavska],
+//                ['kharkivs\'ka oblast\'', harkiv],
+//                ['zhytomyrs\'ka oblast\'', zhitomerska],
+//                ['ternopil\'s\'ka oblast\'', ternopilska],
+//                ['cherkas\'ka oblast\'', cherkaska],
+//                ['zaporiz\'ka oblast\'', zaporizhska],
+//                ['luhans\'ka oblast\'', luhanska],
+//                ['vinnyts\'ka oblast\'', vinnitska],
+//                ['donets\'ka oblast\'', donetska],
+//                ['l\'vivs\'ka oblast\'', lvivska],
+//                ['volyns\'ka oblast\'', volinska],
+//                ['dnipropetrovs\'ka oblast\'', dnipropetrovska],
+//                ['mykola\u00efvs\'ka oblast\'', mikolaivska],
+//                ['kirovohrads\'ka oblast\'', kirovogradska]
             ]);
-            "mykola\u00efvs'ka oblast'"
-        :
-            "UA-48", "UA-46", "volyns'ka oblast'"
-        :
-            "UA-07", "odes'ka oblast'"
-        :
-            "UA-51"
-        }
-        ;
-        var options = {region: 'UA', displayMode: 'regions', resolution: 'provinces', showZoomOut: true, colors: ['#00FFFF'], showTip: true, magnifyingGlass: {enable: true, zoomFactor: 7.5}};
+            var options = {region: 'UA', displayMode: 'regions', resolution: 'provinces', showZoomOut: true, colors: ['#00FFFF'], showTip: true, magnifyingGlass: {enable: true, zoomFactor: 7.5}};
 
-        var chart = new google.visualization.GeoChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
+            var chart = new google.visualization.GeoChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
         }
         ;
     </script>

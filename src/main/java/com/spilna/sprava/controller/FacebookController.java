@@ -5,10 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +15,8 @@ import com.restfb.Parameter;
 import com.restfb.types.Post;
 import com.spilna.sprava.businesslogic.objects.Interest;
 import static com.spilna.sprava.businesslogic.objects.Oblast.*;
+
+import com.spilna.sprava.businesslogic.objects.Oblast;
 import com.spilna.sprava.model.InterestOfPost;
 import com.spilna.sprava.model.PostRO;
 import org.apache.http.client.ClientProtocolException;
@@ -298,7 +297,7 @@ public class FacebookController {
         map.put(VOLINSKA.getValue(), "80");
         map.put(CHERNIGIVSKA.getValue(), "80");
         map.put(CHERKASKA.getValue(), "80");
-        map.put(ZAKARPATSKA.getValue(), "80");
+        map.put(ZAKARPATSKA.getValue(), "566");
         map.put(ZAPORIZHSKA.getValue(), "80");
         map.put(KIROVOGRADSKA.getValue(), "80");
         map.put(TERNOPILSKA.getValue(), "80");
@@ -310,6 +309,11 @@ public class FacebookController {
         map.put(CHERNIVETSKA.getValue(), "80");
         modelAndView.addObject("values", map);
 
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Oblast oblast: Oblast.values() ) {
+            stringBuilder.append(oblast.getValue() + ",");
+        }
+        System.out.println(stringBuilder.toString());
         return modelAndView;
 
     }
