@@ -17,6 +17,8 @@ import com.restfb.FacebookClient;
 import com.restfb.Parameter;
 import com.restfb.types.Post;
 import com.spilna.sprava.businesslogic.objects.Interest;
+import static com.spilna.sprava.businesslogic.objects.Oblast.*;
+import com.spilna.sprava.model.InterestOfPost;
 import com.spilna.sprava.model.PostRO;
 import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
 
 import com.restfb.DefaultFacebookClient;
 import com.restfb.Facebook;
@@ -62,7 +65,7 @@ public class FacebookController {
 	 * The global variable that contains a listing of the data to be provided by
 	 * the application.
 	 */
-	private static final String SCOPE = "publish_actions,user_about_me,user_birthday,user_posts,manage_pages";
+	private static final String SCOPE = "publish_actions,user_about_me,user_location,user_birthday,user_posts,manage_pages";
 
 	/**
 	 * The global variable that contains the URL address redirection after
@@ -278,8 +281,33 @@ public class FacebookController {
     public ModelAndView lookMap()
             throws IOException {
         ModelAndView modelAndView = new ModelAndView("ukrainMap");
+        List<PostInf> postInfList = messageService.getAllPostInf();
         Map<String, String> map = new HashMap<>();
-        map.put("kuyiv", "80");
+
+        map.put(KUIVSKA.getValue(), "80");
+        map.put(ODESSA.getValue(), "80");
+        map.put(VINNITSA.getValue(), "80");
+        map.put(LVIVSKA.getValue(), "80");
+        map.put(IVANOFRANKIVSK.getValue(), "80");
+        map.put(ZHITOMERSKA.getValue(), "80");
+        map.put(HARKIVSKA.getValue(), "80");
+        map.put(SUMSKA.getValue(), "80");
+        map.put(DONETSKA.getValue(), "80");
+        map.put(LUGANSKA.getValue(), "80");
+        map.put(MIKOLAEVSKA.getValue(), "80");
+        map.put(VOLINSKA.getValue(), "80");
+        map.put(CHERNIGIVSKA.getValue(), "80");
+        map.put(CHERKASKA.getValue(), "80");
+        map.put(ZAKARPATSKA.getValue(), "80");
+        map.put(ZAPORIZHSKA.getValue(), "80");
+        map.put(KIROVOGRADSKA.getValue(), "80");
+        map.put(TERNOPILSKA.getValue(), "80");
+        map.put(HMELNITSKA.getValue(), "80");
+        map.put(DNIPROPETROVSKA.getValue(), "80");
+        map.put(POLTAVSKA.getValue(), "80");
+        map.put(RIVNENSKA.getValue(), "80");
+        map.put(HERSONSKA.getValue(), "80");
+        map.put(CHERNIVETSKA.getValue(), "80");
         modelAndView.addObject("values", map);
 
         return modelAndView;
@@ -287,13 +315,11 @@ public class FacebookController {
     }
 
 	@RequestMapping(value = "/selectInterest", method = RequestMethod.GET)
-	public ModelAndView select(@RequestParam String id,@RequestParam String interest) throws IOException {
-		ModelAndView modelAndView = new ModelAndView("ukrainMap");
-        PostInf postInf = messageService.getPostByID(Integer.valueOf(id));
-        postInf.getInterestOfPost().setInterest(interest);
+	public void select(@RequestParam String id,@RequestParam String interest) throws IOException {
+		ModelAndView modelAndView = new ModelAndView();
+        PostInf postInf = messageService.getPostByID(Long.valueOf(id));
+        updateOrCreateNewInterestOfPost(postInf, interest);
         messageService.updatePost(postInf);
-		return modelAndView;
-
 	}
 
     public void setAccessToken(String token) {
@@ -303,4 +329,15 @@ public class FacebookController {
 	public String getAccesToken() {
 		return this.accessToken;
 	}
+
+    private void updateOrCreateNewInterestOfPost(PostInf postInf, String interest) {
+        if (postInf.getInterestOfPost() != null) {
+            postInf.getInterestOfPost().setInterest(interest);
+        } else {
+            InterestOfPost interestOfPost = new InterestOfPost();
+            interestOfPost.setInterest(interest);
+            interestOfPost.setPostInf(postInf);
+            postInf.setInterestOfPost(interestOfPost);
+        }
+    }
 }

@@ -49,8 +49,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public PostInf getPostByID(int id){
+    public PostInf getPostByID(long id){
        return messageDAO.getPostByID(id);
+    }
+
+    public List<PostInf> getAllPostInf(){
+        return messageDAO.getAllPostInf();
     }
 
 }

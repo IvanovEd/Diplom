@@ -144,35 +144,34 @@ public class PostDAOImpl implements PostDAO {
 
     @Override
     public void updatePost(PostInf postInf) {
-        Transaction transaction = null;
         try {
             Session session = openSession();
-            transaction = session.beginTransaction();
             session.update(postInf);
-            transaction.commit();
         } catch (Exception ex) {
             ex.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
         }
     }
 
     @Override
-    public PostInf getPostByID(int id) {
-        Transaction transaction = null;
+    public PostInf getPostByID(long id) {
         PostInf postInf = null;
         try {
             Session session = openSession();
-            transaction = session.beginTransaction();
             postInf = (PostInf) session.get(PostInf.class, id);
-            transaction.commit();
         } catch (Exception ex) {
             ex.printStackTrace();
-            if (transaction != null) {
-                transaction.rollback();
-            }
         }
         return postInf;
+    }
+
+    @Override
+    public List<PostInf> getAllPostInf(){
+        List<PostInf> list = null;
+        try {
+            list = openSession().createCriteria(PostInf.class).list();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return list;
     }
 }

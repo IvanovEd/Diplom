@@ -9,7 +9,7 @@ import java.net.URLDecoder;
  * Created by Ivanov on 27.09.15.
  */
 public class PostRO {
-    private String id;
+    private long id;
 
     private String idPost;
 
@@ -25,11 +25,11 @@ public class PostRO {
         this.idUser = postInf.getIdUser();
         this.post = URLDecoder.decode(postInf.getPost(), "UTF8");
     }
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

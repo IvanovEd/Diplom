@@ -1,7 +1,13 @@
 package com.spilna.sprava.dao;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Objects;
 
+import com.restfb.Parameter;
+import com.spilna.sprava.Utils;
+import org.codehaus.jackson.JsonNode;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -17,6 +23,8 @@ import com.restfb.DefaultFacebookClient;
 import com.restfb.exception.FacebookException;
 import com.restfb.types.User;
 import com.spilna.sprava.model.UserIn;
+import org.springframework.web.client.RestTemplate;
+
 /**
  * 
  * @author Ivanov Eduard
@@ -41,17 +49,34 @@ public class UserDAOImpl implements UserDAO {
 		DefaultFacebookClient fbClient = new DefaultFacebookClient(token);
 
 		try {
-			User me = fbClient.fetchObject("me", User.class);
+			User me = fbClient.fetchObject("me", User.class, Parameter.with("fields","name,locale,location,about"));
 
 			String id = me.getId().toString();
 			String name = me.getName();
-			/** SQL query records in the table message, login and post */
-			Query q = openSession().createSQLQuery(
-							"INSERT INTO user(id_user,name,token) " + "VALUES"
-							+ " ('"+id+"','"+name+ "','"+token+"')"
-							+ " ON DUPLICATE KEY UPDATE token='" + token+ "'");
+//			/** SQL query records in the table message, login and post */
+//			Query q = openSession().createSQLQuery(
+//							"INSERT INTO user(id_user,name,token) " + "VALUES"
+//							+ " ('"+id+"','"+name+ "','"+token+"')"
+//							+ " ON DUPLICATE KEY UPDATE token='" + token+ "'");
 
-			q.executeUpdate();
+            String cityName = me.getLocation().getName();
+            String region = Utils.searchRegionByCity(cityName, token);
+
+
+//            Query q = openSession().createQuery("insert into com.spilna.sprava.model.UserIn (id_user,name,token,city,region) values (:id,:name,:token,:city,:region)");
+//            q.setParameter("id", id);
+//            q.setParameter("name", name);
+//            q.setParameter("token", token);
+//            q.setParameter("city", cityName);
+//            q.setParameter("region", region);
+            UserIn userIn = new UserIn();
+            userIn.setIdU(id);
+            userIn.setCity(cityName);
+            userIn.setRegion(region);
+            userIn.setName(name);
+            userIn.setToken(token);
+
+			openSession().saveOrUpdate(userIn);
 		} catch (FacebookException e) {
 			e.printStackTrace();
 		} catch (HibernateQueryException e) {

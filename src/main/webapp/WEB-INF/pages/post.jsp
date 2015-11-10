@@ -113,8 +113,8 @@ input {
 								<display:column property="post" title="Post" sortable="true"
 									style="border: 1px solid teal; " />
 								<display:column title="Action">
-									<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=1">Politics</a>
-                                    <a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2">Music</a>
+									<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=1" onclick="return false;">Politics</a>
+                                    <a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2" onclick="return false;">Music</a>
 								</display:column>
 							</display:table>
 

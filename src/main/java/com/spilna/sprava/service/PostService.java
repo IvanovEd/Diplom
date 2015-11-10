@@ -23,6 +23,8 @@ public interface PostService {
 
     public void updatePost(PostInf postInf);
 
-    public PostInf getPostByID(int id);
+    public PostInf getPostByID(long id);
+
+    public List<PostInf> getAllPostInf();
 
 }

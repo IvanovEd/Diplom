@@ -22,5 +22,7 @@ public interface PostDAO {
 	/**Obtaining records the number of records the user*/
 	public Integer getCountPost(String idUser);
     public void updatePost(PostInf postInf);
-    public PostInf getPostByID(int id);
+    public PostInf getPostByID(long id);
+    public List<PostInf> getAllPostInf();
+    
 }

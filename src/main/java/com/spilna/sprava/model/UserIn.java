@@ -24,6 +24,8 @@ public class UserIn {
 	private String name;
 	@Column(name = "token")
 	private String token;
+	private String city;
+	private String region;
 
 
 	
@@ -51,4 +53,20 @@ public class UserIn {
 	public void setToken(String token) {
 		this.token = token;
 	}
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
 }

@@ -11,7 +11,7 @@ public class InterestOfPost {
     @Id// Id describe table
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
-    private String id;
+    private long id;
     private String interest;
     @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinColumn(name="post_id")
@@ -19,11 +19,11 @@ public class InterestOfPost {
 
     public InterestOfPost() {}
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

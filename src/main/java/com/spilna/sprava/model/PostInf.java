@@ -20,7 +20,7 @@ public class PostInf {
 
 	@Id// Id describe table
 	@Column(name = "id")
-	private String id;
+	private long id;
 	@Column(name = "id_post")// Definition of the column name
 	private String idPost;
 
@@ -29,18 +29,18 @@ public class PostInf {
 
 	@Column(name = "message")
 	private String post;
-    @OneToOne(mappedBy = "postInf")
+    @OneToOne(mappedBy = "postInf", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     private InterestOfPost interestOfPost;
 
     public PostInf() {}
 
 	// implementation of methods getters and setters
 
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
