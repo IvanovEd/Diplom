@@ -2,14 +2,13 @@ package com.spilna.sprava.service;
 
 import java.util.List;
 
-import com.restfb.types.Post;
+import com.spilna.sprava.model.Post;
 import com.spilna.sprava.model.PostRO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.spilna.sprava.dao.PostDAO;
-import com.spilna.sprava.model.PostInf;
 
 /**
  * 
@@ -25,7 +24,7 @@ public class PostServiceImpl implements PostService {
 	@Override
 	@Transactional
 	/* Add message */
-	public void addMessage( String token,PostInf message) {
+	public void addMessage( String token,Post message) {
 		messageDAO.saveMessage(token, message);
 
 	}
@@ -45,22 +44,22 @@ public class PostServiceImpl implements PostService {
 	}
 
     @Override
-    public void updatePost(PostInf postInf){
-        messageDAO.updatePost(postInf);
+    public void updatePost(Post post){
+        messageDAO.updatePost(post);
     }
 
     @Override
-    public PostInf getPostByID(long id){
+    public Post getPostByID(long id){
        return messageDAO.getPostByID(id);
     }
 
 	@Override
-    public List<PostInf> getAllPostInf(){
+    public List<Post> getAllPostInf(){
         return messageDAO.getAllPostInf();
     }
 
 	@Override
-	public void saveOrUpdatePost (Post post, String idUser){
+	public void saveOrUpdatePost (com.restfb.types.Post post, String idUser){
 		messageDAO.saveOrUpdatePost(post, idUser);
 	}
 }

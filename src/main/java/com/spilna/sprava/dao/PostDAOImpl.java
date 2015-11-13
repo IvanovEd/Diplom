@@ -1,15 +1,14 @@
 package com.spilna.sprava.dao;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.restfb.types.Post;
-import com.spilna.sprava.Utils;
-import com.spilna.sprava.businesslogic.objects.Interest;
+import com.spilna.sprava.businesslogic.utils.Utils;
+import com.spilna.sprava.businesslogic.enums.Interest;
 import com.spilna.sprava.model.InterestOfPost;
+import com.spilna.sprava.model.Post;
 import com.spilna.sprava.model.PostRO;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.*;
@@ -26,7 +25,6 @@ import com.restfb.Parameter;
 import com.restfb.exception.FacebookException;
 import com.restfb.types.FacebookType;
 import com.restfb.types.User;
-import com.spilna.sprava.model.PostInf;
 import org.springframework.util.CollectionUtils;
 
 /**
@@ -55,7 +53,7 @@ public class PostDAOImpl implements PostDAO {
      * publish hear in facebook via RestFB is a simple and
      * flexible Facebook Graph API and Old REST API client written in Java.
      * */
-    public void saveMessage(String token, PostInf message) {
+    public void saveMessage(String token, Post message) {
 
         DefaultFacebookClient fbClient = new DefaultFacebookClient(token);
         try {
@@ -121,15 +119,15 @@ public class PostDAOImpl implements PostDAO {
     @Override
     public List<PostRO> getMessage(String idU) {
         Session session = openSession();
-        Criteria crit = session.createCriteria(PostInf.class);
+        Criteria crit = session.createCriteria(Post.class);
         crit.add(Restrictions.like("idUser", idU));
-        List<PostInf> mesList = crit.addOrder(Order.asc("id")).list();
+        List<Post> mesList = crit.addOrder(Order.asc("id")).list();
         List<PostRO> postROs = new ArrayList<PostRO>();
 
-        for (PostInf postInf : mesList) {
+        for (Post post : mesList) {
 
             try {
-                postROs.add(new PostRO(postInf));
+                postROs.add(new PostRO(post));
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
@@ -151,32 +149,32 @@ public class PostDAOImpl implements PostDAO {
     }
 
     @Override
-    public void updatePost(PostInf postInf) {
+    public void updatePost(Post post) {
         try {
             Session session = openSession();
-            session.update(postInf);
+            session.update(post);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
     @Override
-    public PostInf getPostByID(long id) {
-        PostInf postInf = null;
+    public Post getPostByID(long id) {
+        Post post = null;
         try {
             Session session = openSession();
-            postInf = (PostInf) session.get(PostInf.class, id);
+            post = (Post) session.get(Post.class, id);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return postInf;
+        return post;
     }
 
     @Override
-    public List<PostInf> getAllPostInf(){
-        List<PostInf> list = null;
+    public List<Post> getAllPostInf(){
+        List<Post> list = null;
         try {
-            list = openSession().createCriteria(PostInf.class).list();
+            list = openSession().createCriteria(Post.class).list();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -185,30 +183,30 @@ public class PostDAOImpl implements PostDAO {
 
     @Override
     @Transactional
-    public void saveOrUpdatePost (Post post, String idUser) {
+    public void saveOrUpdatePost (com.restfb.types.Post post, String idUser) {
         try {
             Session session = openSession();
-            PostInf postInf = new PostInf();
+            Post postInf = new Post();
             postInf.setIdPost(post.getId());
             if (!StringUtils.isEmpty(post.getMessage())) {
                 postInf.setPost(URLEncoder.encode(post.getMessage(), "UTF8"));
-                List<PostInf> postInfList = getAllPostInf();
-                if (!CollectionUtils.isEmpty(postInfList)) {
+                List<Post> postList = getAllPostInf();
+                if (!CollectionUtils.isEmpty(postList)) {
                     List<PostRO> postROList = new ArrayList<>();
-                    for (PostInf postInfObj : postInfList) {
-                        postROList.add(new PostRO(postInfObj));
+                    for (Post postObj : postList) {
+                        postROList.add(new PostRO(postObj));
                     }
 
                     InterestOfPost interestOfPost = new InterestOfPost();
                     interestOfPost.setInterest(String.valueOf(utils.getInterestByExistsInterestInPost(post.getMessage(), postROList).getValue()));
-                    interestOfPost.setPostInf(postInf);
+                    interestOfPost.setPost(postInf);
                     postInf.setInterestOfPost(interestOfPost);
                 }
             }
             if (postInf.getInterestOfPost() == null) {
                 InterestOfPost interestOfPost = new InterestOfPost();
                 interestOfPost.setInterest(String.valueOf(Interest.OTHER.getValue()));
-                interestOfPost.setPostInf(postInf);
+                interestOfPost.setPost(postInf);
                 postInf.setInterestOfPost(interestOfPost);
             }
             postInf.setIdUser(idUser);

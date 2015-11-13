@@ -1,10 +1,9 @@
-package com.spilna.sprava;
+package com.spilna.sprava.businesslogic.utils;
 
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
-import com.spilna.sprava.businesslogic.objects.Interest;
+import com.spilna.sprava.businesslogic.enums.Interest;
 import com.spilna.sprava.model.PostRO;
-import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -12,7 +11,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

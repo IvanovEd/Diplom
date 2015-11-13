@@ -1,9 +1,7 @@
 package com.spilna.sprava.model;
 
-import com.spilna.sprava.businesslogic.objects.Interest;
+import com.spilna.sprava.businesslogic.enums.Interest;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 
@@ -27,13 +25,13 @@ public class PostRO {
 
     // implementation of methods getters and setters
     public PostRO() {};
-    public PostRO(PostInf postInf) throws UnsupportedEncodingException {
-        this.id = postInf.getId();
-        this.idPost = postInf.getIdPost();
-        this.idUser = postInf.getIdUser();
-        this.post = URLDecoder.decode(postInf.getPost(), "UTF8");
-        if (postInf.getInterestOfPost() != null) {
-            this.interest = Interest.parse(Integer.valueOf(postInf.getInterestOfPost().getInterest())).toString();
+    public PostRO(Post post) throws UnsupportedEncodingException {
+        this.id = post.getId();
+        this.idPost = post.getIdPost();
+        this.idUser = post.getIdUser();
+        this.post = URLDecoder.decode(post.getPost(), "UTF8");
+        if (post.getInterestOfPost() != null) {
+            this.interest = Interest.parse(Integer.valueOf(post.getInterestOfPost().getInterest())).toString();
         }
     }
     public long getId() {

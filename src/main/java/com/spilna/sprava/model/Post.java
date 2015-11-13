@@ -16,7 +16,7 @@ import javax.persistence.*;
  * entity in the database corresponds to a table named 'post'
  */
 @Table(name = "post")
-public class PostInf {
+public class Post {
 
 	@Id// Id describe table
 	@Column(name = "id")
@@ -30,10 +30,10 @@ public class PostInf {
 
 	@Column(name = "message")
 	private String post;
-    @OneToOne(mappedBy = "postInf", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    @OneToOne(mappedBy = "post", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     private InterestOfPost interestOfPost;
 
-    public PostInf() {}
+    public Post() {}
 
 	// implementation of methods getters and setters
 

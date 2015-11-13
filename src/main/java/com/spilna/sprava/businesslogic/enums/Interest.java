@@ -1,4 +1,4 @@
-package com.spilna.sprava.businesslogic.objects;
+package com.spilna.sprava.businesslogic.enums;
 
 /**
  * Created by Ivanov on 05.11.15.

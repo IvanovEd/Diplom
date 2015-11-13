@@ -16,7 +16,7 @@
         google.load("visualization", "1", {packages: ["corechart"]});
         google.setOnLoadCallback(drawChart);
         function drawChart() {
-            var POLITIC,MUSIC,OTHER;
+            var POLITIC, MUSIC, OTHER;
             <c:if test="${!empty valuesForPio}">
             POLITIC = ${valuesForPio["POLITIC"]},
                     MUSIC = ${valuesForPio["MUSIC"]},
@@ -44,66 +44,64 @@
 
 
         function drawRegionsMap() {
-            var kuyivska, zakarpatska;
-//                    ,odesska,vinnitska,lvivska,ivanofrankivska,zhitomerska,harkiv,sumska,donetska,luhanska,mikolaivska,volinska,chernigivska,cherkaska,zakarpatska,zaporizhska,kirovogradska,ternopilska,hmelnitska,dnipropetrovska,poltavska,rivnenska,hersonska,chernivetska;
+            var kyivska, krym, zakarpatska, odesska, vinnitska, lvivska, ivanofrankivska, zhitomerska, harkiv, sumska, donetska, luhanska, mikolaivska, volinska, chernigivska, cherkaska, zakarpatska, zaporizhska, kirovogradska, ternopilska, hmelnitska, dnipropetrovska, poltavska, rivnenska, hersonska, chernivetska;
             <c:if test="${!empty values}">
-            <%--kuyivska = ${values["kuyivska"]},--%>
-            <%--odesska = ${values["odesska"]},--%>
-            <%--vinnitska = ${values["vinnitska"]},--%>
-            <%--lvivska = ${values["lvivska"]},--%>
-            <%--ivanofrankivska = ${values["ivanofrankivska"]},--%>
-            <%--zhitomerska = ${values["zhitomerska"]},--%>
-            <%--harkiv = ${values["harkiv"]},--%>
-            <%--sumska = ${values["sumska"]},--%>
-            <%--donetska = ${values["donetska"]},--%>
-            <%--luhanska = ${values["luhanska"]},--%>
-            <%--mikolaivska = ${values["mikolaivska"]},--%>
-            <%--volinska = ${values["volinska"]},--%>
-            <%--chernigivska = ${values["chernigivska"]},--%>
-            <%--cherkaska = ${values["cherkaska"]},--%>
-            zakarpatska = ${values["zakarpatska"]},
-                    <%--zaporizhska = ${values["zaporizhska"]},--%>
-                    <%--kirovogradska = ${values["kirovogradska"]},--%>
-                    <%--ternopilska = ${values["ternopilska"]},--%>
-                    <%--hmelnitska = ${values["hmelnitska"]},--%>
-                    <%--dnipropetrovska = ${values["dnipropetrovska"]},--%>
-                    <%--poltavska = ${values["poltavska"]},--%>
-                    <%--rivnenska = ${values["rivnenska"]},--%>
-                    hersonska =
-            ${values["hersonska"]}
-            /* chernivetska =
-            ${values["chernivetska"]};*/
-            <%--<c:forEach items="${values}" var="val">--%>
-
-            <%--sumskaVal = ${val["kuyiv"]}--%>
-            <%--</c:forEach>--%>
+            kyivska = ${values["kuyivska"]},
+                    odesska = ${values["odesska"]},
+                    vinnitska = ${values["vinnitska"]},
+                    lvivska = ${values["lvivska"]},
+                    ivanofrankivska = ${values["ivanofrankivska"]},
+                    zhitomerska = ${values["zhitomerska"]},
+                    harkiv = ${values["harkiv"]},
+                    sumska = ${values["sumska"]},
+                    donetska = ${values["donetska"]},
+                    luhanska = ${values["luhanska"]},
+                    mikolaivska = ${values["mikolaivska"]},
+                    volinska = ${values["volinska"]},
+                    chernigivska = ${values["chernigivska"]},
+                    cherkaska = ${values["cherkaska"]},
+                    zakarpatska = ${values["zakarpatska"]},
+                    zaporizhska = ${values["zaporizhska"]},
+                    kirovogradska = ${values["kirovogradska"]},
+                    ternopilska = ${values["ternopilska"]},
+                    hmelnitska = ${values["hmelnitska"]},
+                    dnipropetrovska = ${values["dnipropetrovska"]},
+                    poltavska = ${values["poltavska"]},
+                    rivnenska = ${values["rivnenska"]},
+                    hersonska = ${values["hersonska"]},
+                    krym = ${values["krym"]},
+                    chernivetska = ${values["chernivetska"]};
             </c:if>
             var data = google.visualization.arrayToDataTable([
                 ['City', 'Site'],
                 ['khersons\'ka oblast\'', hersonska],
-                ['zakarpats\'ka oblast\'', zakarpatska]
-////                ['respublika krym', ],
-//                ['odes \'ka oblast\'', odesska],
-//                ['sums \'ka oblast\'', sumska],
-//                ['rivnens\'ka oblast\'', rivnenska],
-//                ['khmel\'nyts\'ka oblast\'', hmelnitska],
-//                ['ivano-frankivs\'ka oblast\'', ivanofrankivska],
-//                ['poltavs\'ka oblast\'', poltavska],
-//                ['kharkivs\'ka oblast\'', harkiv],
-//                ['zhytomyrs\'ka oblast\'', zhitomerska],
-//                ['ternopil\'s\'ka oblast\'', ternopilska],
-//                ['cherkas\'ka oblast\'', cherkaska],
-//                ['zaporiz\'ka oblast\'', zaporizhska],
-//                ['luhans\'ka oblast\'', luhanska],
-//                ['vinnyts\'ka oblast\'', vinnitska],
-//                ['donets\'ka oblast\'', donetska],
-//                ['l\'vivs\'ka oblast\'', lvivska],
-//                ['volyns\'ka oblast\'', volinska],
-//                ['dnipropetrovs\'ka oblast\'', dnipropetrovska],
-//                ['mykola\u00efvs\'ka oblast\'', mikolaivska],
-//                ['kirovohrads\'ka oblast\'', kirovogradska]
+                ['zakarpats\'ka oblast\'', zakarpatska],
+                ['respublika krym', krym],
+                ['odes \'ka oblast\'', odesska],
+                ['sums \'ka oblast\'', sumska],
+                ['rivnens\'ka oblast\'', rivnenska],
+                ['khmel\'nyts\'ka oblast\'', hmelnitska],
+                ['ivano-frankivs\'ka oblast\'', ivanofrankivska],
+                ['poltavs\'ka oblast\'', poltavska],
+                ['kharkivs\'ka oblast\'', harkiv],
+                ['zhytomyrs\'ka oblast\'', zhitomerska],
+                ['ternopil\'s\'ka oblast\'', ternopilska],
+                ['cherkas\'ka oblast\'', cherkaska],
+                ['zaporiz\'ka oblast\'', zaporizhska],
+                ['luhans\'ka oblast\'', luhanska],
+                ['vinnyts\'ka oblast\'', vinnitska],
+                ['donets\'ka oblast\'', donetska],
+                ['l\'vivs\'ka oblast\'', lvivska],
+                ['volyns\'ka oblast\'', volinska],
+                ['dnipropetrovs\'ka oblast\'', dnipropetrovska],
+                ['mykola\u00efvs\'ka oblast\'', mikolaivska],
+                ['kirovohrads\'ka oblast\'', kirovogradska],
+                ['ky\u00efvs\'ka oblast\'', kyivska],
+                ['chernivets\'ka oblast\'', chernivetska],
+                ['chernihivs\'ka oblast\'', chernigivska],
+                ['ky\u00efv', 0]
             ]);
-            var options = {region: 'UA', displayMode: 'regions', resolution: 'provinces', showZoomOut: true, colors: ['#00FFFF'], showTip: true, magnifyingGlass: {enable: true, zoomFactor: 7.5}};
+            var options = {region: 'UA', displayMode: 'region', resolution: 'provinces', showZoomOut: true, colors: ['#0066ff'], showTip: true, magnifyingGlass: {enable: true, zoomFactor: 7.5}};
 
             var chart = new google.visualization.GeoChart(document.getElementById('chart_div'));
             chart.draw(data, options);

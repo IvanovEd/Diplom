@@ -15,7 +15,7 @@ public class InterestOfPost {
     private String interest;
     @OneToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     @JoinColumn(name="post_id")
-    private PostInf postInf;
+    private Post post;
 
     public InterestOfPost() {}
 
@@ -35,11 +35,11 @@ public class InterestOfPost {
         this.interest = interest;
     }
 
-    public PostInf getPostInf() {
-        return postInf;
+    public Post getPost() {
+        return post;
     }
 
-    public void setPostInf(PostInf postInf) {
-        this.postInf = postInf;
+    public void setPost(Post post) {
+        this.post = post;
     }
 }

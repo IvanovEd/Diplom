@@ -16,7 +16,7 @@ import javax.persistence.Table;
  * entity in the database corresponds to a table named 'user'
  */
 @Table(name = "user")
-public class UserIn {
+public class User {
 	@Id
 	@Column(name = "id_user")
 	private String idUser;

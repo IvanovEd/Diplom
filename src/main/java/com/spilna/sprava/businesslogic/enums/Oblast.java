@@ -1,4 +1,4 @@
-package com.spilna.sprava.businesslogic.objects;
+package com.spilna.sprava.businesslogic.enums;
 
 /**
  * Created by Ivanov on 10.11.15.
@@ -27,6 +27,7 @@ public enum Oblast {
     POLTAVSKA("poltavska"),
     RIVNENSKA("rivnenska"),
     HERSONSKA("hersonska"),
+    KRYM("krym"),
     CHERNIVETSKA("chernivetska");
 
     private String value;
