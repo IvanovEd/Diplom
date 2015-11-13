@@ -2,6 +2,7 @@ package com.spilna.sprava.service;
 
 import java.util.List;
 
+import com.restfb.types.Post;
 import com.spilna.sprava.model.PostRO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,8 +54,13 @@ public class PostServiceImpl implements PostService {
        return messageDAO.getPostByID(id);
     }
 
+	@Override
     public List<PostInf> getAllPostInf(){
         return messageDAO.getAllPostInf();
     }
 
+	@Override
+	public void saveOrUpdatePost (Post post, String idUser){
+		messageDAO.saveOrUpdatePost(post, idUser);
+	}
 }
