@@ -2,6 +2,7 @@ package com.spilna.sprava.service;
 
 import java.util.List;
 
+import com.restfb.types.Post;
 import com.spilna.sprava.model.PostInf;
 import com.spilna.sprava.model.PostRO;
 
@@ -26,5 +27,6 @@ public interface PostService {
     public PostInf getPostByID(long id);
 
     public List<PostInf> getAllPostInf();
+	public void saveOrUpdatePost (Post post, String idUser);
 
 }

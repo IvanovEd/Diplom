@@ -6,7 +6,12 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.restfb.types.Post;
+import com.spilna.sprava.Utils;
+import com.spilna.sprava.businesslogic.objects.Interest;
+import com.spilna.sprava.model.InterestOfPost;
 import com.spilna.sprava.model.PostRO;
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.*;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -22,6 +27,7 @@ import com.restfb.exception.FacebookException;
 import com.restfb.types.FacebookType;
 import com.restfb.types.User;
 import com.spilna.sprava.model.PostInf;
+import org.springframework.util.CollectionUtils;
 
 /**
  * @author Ivanov Eduard
@@ -35,6 +41,8 @@ public class PostDAOImpl implements PostDAO {
     private SessionFactory sessionFactory;
     @Autowired
     private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private Utils utils;
 
     private String SQL_SAVE_POST = "INSERT INTO post(id_post,id_user,message) VALUES (?,?,?) ON DUPLICATE KEY UPDATE id_post=";
 
@@ -173,5 +181,44 @@ public class PostDAOImpl implements PostDAO {
             ex.printStackTrace();
         }
         return list;
+    }
+
+    @Override
+    @Transactional
+    public void saveOrUpdatePost (Post post, String idUser) {
+        try {
+            Session session = openSession();
+            PostInf postInf = new PostInf();
+            postInf.setIdPost(post.getId());
+            if (!StringUtils.isEmpty(post.getMessage())) {
+                postInf.setPost(URLEncoder.encode(post.getMessage(), "UTF8"));
+                List<PostInf> postInfList = getAllPostInf();
+                if (!CollectionUtils.isEmpty(postInfList)) {
+                    List<PostRO> postROList = new ArrayList<>();
+                    for (PostInf postInfObj : postInfList) {
+                        postROList.add(new PostRO(postInfObj));
+                    }
+
+                    InterestOfPost interestOfPost = new InterestOfPost();
+                    interestOfPost.setInterest(String.valueOf(utils.getInterestByExistsInterestInPost(post.getMessage(), postROList).getValue()));
+                    interestOfPost.setPostInf(postInf);
+                    postInf.setInterestOfPost(interestOfPost);
+                }
+            }
+            if (postInf.getInterestOfPost() == null) {
+                InterestOfPost interestOfPost = new InterestOfPost();
+                interestOfPost.setInterest(String.valueOf(Interest.OTHER.getValue()));
+                interestOfPost.setPostInf(postInf);
+                postInf.setInterestOfPost(interestOfPost);
+            }
+            postInf.setIdUser(idUser);
+            InterestOfPost interestOfPost = postInf.getInterestOfPost();
+            postInf.setInterestOfPost(null);
+            session.save(postInf);
+            postInf.setInterestOfPost(interestOfPost);
+            session.save(postInf);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }

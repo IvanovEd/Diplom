@@ -21,6 +21,7 @@ import com.spilna.sprava.businesslogic.objects.Oblast;
 import com.spilna.sprava.model.InterestOfPost;
 import com.spilna.sprava.model.PostRO;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -189,20 +190,10 @@ public class FacebookController {
 	 * custom JsonMapper and WebRequestor implementations, or simply
 	 * write your own FacebookClient instead for maximum control.
 	 */
-        FacebookClient facebookClient = new DefaultFacebookClient(this.getAccesToken(), APP_SECRET);
-		User me = facebookClient.fetchObject("me", User.class);
-		/*
-		 * variable contains user Id 
-		 */
-		
-		String idU = me.getId();
-		/*
-		 * FQL query. Select message and status ID with facebook DB table"status"
-		 */
-		String query = "SELECT  message,status_id FROM status WHERE uid=?";
+		FacebookClient facebookClient = new DefaultFacebookClient(this.getAccesToken(), APP_SECRET);
 
 
-		List<Post> posts = facebookClient.fetchConnection("me/feed", Post.class, Parameter.with("fields",
+		List<Post> postList = facebookClient.fetchConnection("me/feed", Post.class, Parameter.with("fields",
                 "description,message")).getData();
 		List<PostRO> postlist = new ArrayList<PostRO>();
 
@@ -210,47 +201,43 @@ public class FacebookController {
 		 *  create an array of posts using the method split()
 		 */
 		//String[] postsU = posts.toString().split(",");
-		Integer count = posts.size() + 1 ; //number of posts
+		Integer count = postList.size() + 1 ; //number of posts
 		/*
 		 * Get the number of records from  our DB
 		 */
+
+		User me = facebookClient.fetchObject("me", User.class);
+		/*
+		 * variable contains user Id
+		 */
+		String idU = me.getId();
+
 		int countMy=messageService.getCountPost(idU);
 		/*
 		 * Fill database table if it is empty
 		 */
 		System.out.println("Number FB post=" + count
-							+ "\n Number records our DB=" + countMy);
-		
-		if (messageService.getMessage(idU).isEmpty()){
-            for (Post post1 : posts) {
-                messageService.saveMessage(post1.getId(), idU,
-                        post1.getMessage() == null ? post1.getDescription() : post1.getMessage());
+				+ "\n Number records our DB=" + countMy);
+		List<PostRO> postROList = messageService.getMessage(idU);
+		if (postROList.isEmpty()){
+            for (Post postObj : postList) {
+				if (!StringUtils.isEmpty(postObj.getMessage())) {
+					messageService.saveOrUpdatePost(postObj, idU);
+				}
             }
-			
-//			for (int i = count; i <= count & i >= 0; i--) {
-//
-//				System.out.println("Fill the empty table DB:");
-//				// Save posts
-//			 	messageService.saveMessage(postsU[i].substring(1, 16), idU,
-//										   postsU[i].substring(17));
-//
-//			}
+		} else {
+			for (Post postObj : postList) {
+				boolean contains = false;
+				for (PostRO postRO : postROList) {
+					if (postRO.getIdPost().equals(postObj.getId()) || StringUtils.isEmpty(postObj.getMessage())) {
+						contains = true;
+					}
+				}
+				if (!contains) {
+					messageService.saveOrUpdatePost(postObj, idU);
+				}
+			}
 		}
-		
-		/*
-		 * Fill database table if facebook has a new record
-		 */
-
-//		else if(count > countMy){
-//
-//				int diff=(count-countMy) - 1;
-//
-//				do{
-//					System.out.println("add post::"+posts.get(diff));
-//				messageService.saveMessage(posts.get(diff).getId(), idU,posts.get(diff).getMessage());
-//				diff--;
-//				}while(diff>=0);
-//			}
 
 		postlist=messageService.getMessage(idU);
 

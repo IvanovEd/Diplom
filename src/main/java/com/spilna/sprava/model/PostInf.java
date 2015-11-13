@@ -20,6 +20,7 @@ public class PostInf {
 
 	@Id// Id describe table
 	@Column(name = "id")
+	@GeneratedValue
 	private long id;
 	@Column(name = "id_post")// Definition of the column name
 	private String idPost;

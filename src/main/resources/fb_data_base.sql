@@ -16,6 +16,5 @@ create table interest_of_posts(
 id INT AUTO_INCREMENT NOT NULL,
 post_id int not null,
 interest int default null,
-PRIMARY KEY(id),
-foreign key (post_id) references post(id)  
+PRIMARY KEY(id)
 )ENGINE=InnoDB CHARSET=utf8;
