@@ -13,12 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import com.restfb.FacebookClient;
 import com.restfb.Parameter;
 import com.restfb.types.Post;
+import com.spilna.sprava.Utils;
 import com.spilna.sprava.businesslogic.objects.Interest;
 import static com.spilna.sprava.businesslogic.objects.Oblast.*;
 
 import com.spilna.sprava.businesslogic.objects.Oblast;
 import com.spilna.sprava.model.InterestOfPost;
 import com.spilna.sprava.model.PostRO;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -53,6 +55,8 @@ public class FacebookController {
 	private UserService userService;
 	@Autowired
 	private PostService messageService;
+    @Autowired
+    private Utils utils;
 
 	/**
 	 * The global variable that contains the user Access Token.
@@ -249,6 +253,7 @@ public class FacebookController {
 //			}
 
 		postlist=messageService.getMessage(idU);
+
 		modelAndView.addObject("post", postlist);
 		modelAndView.addObject("user", userService.getUser(idU));
 		
@@ -276,8 +281,8 @@ public class FacebookController {
 
 	}
 
-    @RequestMapping(value = "/ukrainMap", method = RequestMethod.GET)
-    public ModelAndView lookMap()
+    @RequestMapping(value = "/ukraineMap", method = RequestMethod.GET)
+    public ModelAndView lookMap(@RequestParam long interest)
             throws IOException {
         ModelAndView modelAndView = new ModelAndView("ukrainMap");
         List<PostInf> postInfList = messageService.getAllPostInf();
@@ -309,6 +314,14 @@ public class FacebookController {
         map.put(CHERNIVETSKA.getValue(), "80");
         modelAndView.addObject("values", map);
 
+        List<PostRO> postROList = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(postInfList)){
+
+        }
+        for (PostInf postInf : postInfList) {
+            postROList.add(new PostRO(postInf));
+        }
+        modelAndView.addObject("valuesForPio", utils.getPercentOfInterestMap(postROList, false));
         StringBuilder stringBuilder = new StringBuilder();
         for (Oblast oblast: Oblast.values() ) {
             stringBuilder.append(oblast.getValue() + ",");
@@ -319,11 +332,11 @@ public class FacebookController {
     }
 
 	@RequestMapping(value = "/selectInterest", method = RequestMethod.GET)
-	public void select(@RequestParam String id,@RequestParam String interest) throws IOException {
-		ModelAndView modelAndView = new ModelAndView();
+	public ModelAndView select(@RequestParam String id,@RequestParam String interest) throws IOException {
         PostInf postInf = messageService.getPostByID(Long.valueOf(id));
         updateOrCreateNewInterestOfPost(postInf, interest);
         messageService.updatePost(postInf);
+        return new ModelAndView("redirect:/post.html");
 	}
 
     public void setAccessToken(String token) {

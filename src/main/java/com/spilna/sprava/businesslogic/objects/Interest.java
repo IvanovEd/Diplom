@@ -5,7 +5,9 @@ package com.spilna.sprava.businesslogic.objects;
  */
 public enum Interest {
     POLITIC(1),
-    MUSIC(2);
+    MUSIC(2),
+    UNKNOWN(2),
+    OTHER(3);
     private final int value;
 
     private Interest(int value) {

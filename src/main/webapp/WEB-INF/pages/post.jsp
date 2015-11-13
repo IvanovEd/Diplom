@@ -12,7 +12,7 @@
 <title>Spilna Sprava | Post Form</title>
 </head>
 <!-- style setting buttons  -->
-<style>
+<style type="text/css">
 input {
 	height: 50px;
 	width: 100px;
@@ -21,6 +21,15 @@ input {
 	font-size: 15px;
 	font-family: Verdana;
 	font-weight: bold;
+}
+.for_map_link {
+    height: 40px;
+    width: 70px;
+    cursor: pointer;
+    color: teal;
+    font-size: 10px;
+    font-family: Verdana;
+    font-weight: bold;
 }
 </style>
 
@@ -86,11 +95,15 @@ input {
 		 :)</div>
 		<br>
 		<br>
-		
+        <%--<input id="cb" type="checkbox" onchange="window.location.href='http://google.com/'">--%>
+        <div>
+            <input type=button onClick="parent.location='ukraineMap.html?interest=1'" value='Politic' class="for_map_link">
+            <input type=button onClick="parent.location='ukraineMap.html?interest=2'" value='Music' class="for_map_link">
+        </div>
+
 		<!-- After saving the message is redirected /savePost -->
 		
 		<c:url var="userMessage" value="savePost.html" />
-		<s:url id="editReport" action="selectInterest" />
 		<form:form id="messageForm" modelAttribute="post" method="post"
 			action="${userMessage}">
 			<table width="400px" height="150px">
@@ -112,9 +125,11 @@ input {
 									style="border: 1px solid teal;  " />
 								<display:column property="post" title="Post" sortable="true"
 									style="border: 1px solid teal; " />
-								<display:column title="Action">
-									<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=1" onclick="return false;">Politics</a>
-                                    <a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2" onclick="return false;">Music</a>
+                                <display:column property="interest" title="Interest" sortable="true"
+                                                style="border: 1px solid teal; " />
+								<display:column title="Set">
+									<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=1" >Politics</a>
+                                    <a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2">Music</a>
 								</display:column>
 							</display:table>
 

@@ -34,7 +34,9 @@ import org.springframework.web.client.RestTemplate;
 @Transactional 
 public class UserDAOImpl implements UserDAO {
 	@Autowired  
-    private SessionFactory sessionFactory; 
+    private SessionFactory sessionFactory;
+    @Autowired
+    private Utils utils;
 	private Session openSession() {
 		return sessionFactory.getCurrentSession();
 	}
@@ -60,7 +62,7 @@ public class UserDAOImpl implements UserDAO {
 //							+ " ON DUPLICATE KEY UPDATE token='" + token+ "'");
 
             String cityName = me.getLocation().getName();
-            String region = Utils.searchRegionByCity(cityName, token);
+            String region = utils.searchRegionByCity(cityName, token);
 
 
 //            Query q = openSession().createQuery("insert into com.spilna.sprava.model.UserIn (id_user,name,token,city,region) values (:id,:name,:token,:city,:region)");

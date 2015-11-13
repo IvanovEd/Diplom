@@ -12,30 +12,56 @@
 <html>
 <head>
     <script type='text/javascript' src='https://www.google.com/jsapi'></script>
+    <script type="text/javascript">
+        google.load("visualization", "1", {packages: ["corechart"]});
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var POLITIC,MUSIC,OTHER;
+            <c:if test="${!empty valuesForPio}">
+            POLITIC = ${valuesForPio["POLITIC"]},
+                    MUSIC = ${valuesForPio["MUSIC"]},
+                    OTHER = ${valuesForPio["OTHER"]}
+            </c:if>;
+            var data = google.visualization.arrayToDataTable([
+                ['Task', 'Hours per Day'],
+                ['POLITIC', POLITIC],
+                ['MUSIC', MUSIC],
+                ['OTHER', OTHER]
+            ]);
+
+            var options = {
+                title: 'Statistics'
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div_pio'));
+
+            chart.draw(data, options);
+        }
+    </script>
     <script type='text/javascript'>
         google.load('visualization', '1', {'packages': ['geochart']});
         google.setOnLoadCallback(drawRegionsMap);
 
 
         function drawRegionsMap() {
-            var kuyivska,zakarpatska;
+            var kuyivska, zakarpatska;
 //                    ,odesska,vinnitska,lvivska,ivanofrankivska,zhitomerska,harkiv,sumska,donetska,luhanska,mikolaivska,volinska,chernigivska,cherkaska,zakarpatska,zaporizhska,kirovogradska,ternopilska,hmelnitska,dnipropetrovska,poltavska,rivnenska,hersonska,chernivetska;
             <c:if test="${!empty values}">
-                    <%--kuyivska = ${values["kuyivska"]},--%>
-                    <%--odesska = ${values["odesska"]},--%>
-                    <%--vinnitska = ${values["vinnitska"]},--%>
-                    <%--lvivska = ${values["lvivska"]},--%>
-                    <%--ivanofrankivska = ${values["ivanofrankivska"]},--%>
-                    <%--zhitomerska = ${values["zhitomerska"]},--%>
-                    <%--harkiv = ${values["harkiv"]},--%>
-                    <%--sumska = ${values["sumska"]},--%>
-                    <%--donetska = ${values["donetska"]},--%>
-                    <%--luhanska = ${values["luhanska"]},--%>
-                    <%--mikolaivska = ${values["mikolaivska"]},--%>
-                    <%--volinska = ${values["volinska"]},--%>
-                    <%--chernigivska = ${values["chernigivska"]},--%>
-                    <%--cherkaska = ${values["cherkaska"]},--%>
-                    zakarpatska = ${values["zakarpatska"]},
+            <%--kuyivska = ${values["kuyivska"]},--%>
+            <%--odesska = ${values["odesska"]},--%>
+            <%--vinnitska = ${values["vinnitska"]},--%>
+            <%--lvivska = ${values["lvivska"]},--%>
+            <%--ivanofrankivska = ${values["ivanofrankivska"]},--%>
+            <%--zhitomerska = ${values["zhitomerska"]},--%>
+            <%--harkiv = ${values["harkiv"]},--%>
+            <%--sumska = ${values["sumska"]},--%>
+            <%--donetska = ${values["donetska"]},--%>
+            <%--luhanska = ${values["luhanska"]},--%>
+            <%--mikolaivska = ${values["mikolaivska"]},--%>
+            <%--volinska = ${values["volinska"]},--%>
+            <%--chernigivska = ${values["chernigivska"]},--%>
+            <%--cherkaska = ${values["cherkaska"]},--%>
+            zakarpatska = ${values["zakarpatska"]},
                     <%--zaporizhska = ${values["zaporizhska"]},--%>
                     <%--kirovogradska = ${values["kirovogradska"]},--%>
                     <%--ternopilska = ${values["ternopilska"]},--%>
@@ -43,8 +69,10 @@
                     <%--dnipropetrovska = ${values["dnipropetrovska"]},--%>
                     <%--poltavska = ${values["poltavska"]},--%>
                     <%--rivnenska = ${values["rivnenska"]},--%>
-                    hersonska = ${values["hersonska"]}
-                   /* chernivetska = ${values["chernivetska"]};*/
+                    hersonska =
+            ${values["hersonska"]}
+            /* chernivetska =
+            ${values["chernivetska"]};*/
             <%--<c:forEach items="${values}" var="val">--%>
 
             <%--sumskaVal = ${val["kuyiv"]}--%>
@@ -80,8 +108,8 @@
             var chart = new google.visualization.GeoChart(document.getElementById('chart_div'));
             chart.draw(data, options);
         }
-        ;
     </script>
+
 </head>
 <body>
 <div style="color: teal; font-size: 30px"> Hello
@@ -92,9 +120,16 @@
             <c:out value="${val.key}"/>
         </c:forEach>
     </c:if>
+
+    <c:if test="${!empty valuesForPio}">
+        <c:forEach items="${valuesForPio}" var="val">
+
+            <c:out value="${val.value}"/>
+        </c:forEach>
+    </c:if>
     :)
 </div>
-
+<div id="chart_div_pio" style="width: 400px; height: 240px;"></div>
 <div id="chart_div" style="width: 600px; height: 400px;"></div>
 </body>
 </html>
