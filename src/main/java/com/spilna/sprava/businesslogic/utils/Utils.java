@@ -1,7 +1,13 @@
 package com.spilna.sprava.businesslogic.utils;
 
+import com.restfb.DefaultFacebookClient;
+import com.restfb.FacebookClient;
+import com.restfb.Parameter;
+import com.restfb.Version;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
+import com.restfb.types.Post;
+import com.restfb.types.User;
 import com.spilna.sprava.businesslogic.enums.Interest;
 import com.spilna.sprava.model.PostRO;
 import org.apache.commons.lang.StringUtils;
@@ -20,6 +26,7 @@ import java.util.Map;
  */
 @Component
 public class Utils {
+    private RestTemplate restTemplate = new RestTemplate();
 
     private final long LIMIT_PERCENT = 30;
 
@@ -39,6 +46,47 @@ public class Utils {
         return region;
     }
 
+    public String getAccessToken(String url) {
+        String accessToken = StringUtils.EMPTY;
+        try {
+            accessToken = restTemplate.getForObject(new URI(url), String.class);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        if (!StringUtils.isEmpty(accessToken)) {
+            accessToken = accessToken.substring(accessToken.indexOf("=") + 1,accessToken.indexOf("&"));
+        }
+        return accessToken;
+    }
+
+    public List<Post> getListOfPostsFromFB (String token, String appSecret) {
+        /**
+         *
+         * DefaultFacebookClient is the FacebookClient implementation
+         *  that ships with RestFB. You can customize it by passing in
+         * custom JsonMapper and WebRequestor implementations, or simply
+         * write your own FacebookClient instead for maximum control.
+         */
+        FacebookClient facebookClient = new DefaultFacebookClient(token, appSecret, Version.VERSION_2_4);
+        List<com.restfb.types.Post> postList = facebookClient.fetchConnection("me/feed", com.restfb.types.Post.class, Parameter.with("fields",
+                "description,message")).getData();
+
+        return postList;
+    }
+
+    public User getUserFromFB (String token, String appSecret) {
+        /**
+         *
+         * DefaultFacebookClient is the FacebookClient implementation
+         *  that ships with RestFB. You can customize it by passing in
+         * custom JsonMapper and WebRequestor implementations, or simply
+         * write your own FacebookClient instead for maximum control.
+         */
+        FacebookClient facebookClient = new DefaultFacebookClient(token, appSecret, Version.VERSION_2_4);
+        User user = facebookClient.fetchObject("me", User.class);
+
+        return user;
+    }
 
     public Map<String, Long> getPercentOfInterestMap(List<PostRO> postROs, boolean withPercent) {
         long generalSize = postROs.size();

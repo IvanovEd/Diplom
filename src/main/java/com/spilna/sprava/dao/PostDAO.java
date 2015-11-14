@@ -24,6 +24,6 @@ public interface PostDAO {
     public void updatePost(Post post);
     public Post getPostByID(long id);
     public List<Post> getAllPostInf();
-	public void saveOrUpdatePost (com.restfb.types.Post post, String idUser);
+	public void saveOrUpdatePost (List<com.restfb.types.Post> post, String idUser);
     
 }

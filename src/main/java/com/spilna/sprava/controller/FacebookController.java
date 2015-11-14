@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.restfb.FacebookClient;
 import com.restfb.Parameter;
+import com.restfb.Version;
 import com.spilna.sprava.businesslogic.utils.Utils;
 
 import static com.spilna.sprava.businesslogic.enums.Oblast.*;
@@ -105,37 +106,18 @@ public class FacebookController {
      */
     @RequestMapping(value = "/callback", method = RequestMethod.GET)
     public void accessCode(HttpServletRequest request,
-                           HttpServletResponse response) throws IOException {
+                           HttpServletResponse response) throws Exception {
         String code = request.getParameter("code");
         if (code == null || code.equals("")) {
-            // error
+            throw new Exception("code from FB is null");
         }
         String urlAccessToken = ACCESS_TOKEN + "?client_id=" + APP_ID
                 + "&redirect_uri=" + REDIRECT_URI + "&client_secret="
                 + APP_SECRET + "&code=" + code;
         response.setContentType("text/html");
-        URL url = new URL(urlAccessToken);
-        URLConnection urlConnection = url.openConnection();
-        urlConnection.setConnectTimeout(10000);
-        BufferedReader bufferedReader = new BufferedReader(
-                new InputStreamReader(urlConnection.getInputStream()));
-        String inputLine;
-        StringBuilder stringBuilder = new StringBuilder();
-        while ((inputLine = bufferedReader.readLine()) != null) {
-            stringBuilder.append(inputLine + "\n");
-        }
-
-        bufferedReader.close();
-        this.setAccessToken(stringBuilder.toString());
-        /*
-		 * Get access token
-		 */
-        accessToken = this.getAccesToken();
-        this.setAccessToken(accessToken.substring(13, accessToken.indexOf('&')));
-        System.out.println("Save data user in data base--->");
+        this.setAccessToken(utils.getAccessToken(urlAccessToken));
         userService.addUser(this.getAccesToken());
         response.sendRedirect("http://localhost:8080/post");
-
     }
 
     /**
@@ -150,70 +132,19 @@ public class FacebookController {
     public ModelAndView getMessageForm(@ModelAttribute("post") Post post) {
 
         ModelAndView modelAndView = new ModelAndView("post");
-        /**
-         *
-         * DefaultFacebookClient is the FacebookClient implementation
-         *  that ships with RestFB. You can customize it by passing in
-         * custom JsonMapper and WebRequestor implementations, or simply
-         * write your own FacebookClient instead for maximum control.
-         */
-        FacebookClient facebookClient = new DefaultFacebookClient(this.getAccesToken(), APP_SECRET);
-
-
-        List<com.restfb.types.Post> postList = facebookClient.fetchConnection("me/feed", com.restfb.types.Post.class, Parameter.with("fields",
-                "description,message")).getData();
-        List<PostRO> postlist = new ArrayList<PostRO>();
-
-		/*
-		 *  create an array of posts using the method split()
-		 */
-        //String[] postsU = posts.toString().split(",");
-        Integer count = postList.size() + 1; //number of posts
-		/*
-		 * Get the number of records from  our DB
-		 */
-
-        User me = facebookClient.fetchObject("me", User.class);
+        List<com.restfb.types.Post> postList = utils.getListOfPostsFromFB(getAccesToken(), APP_SECRET);
+        User me = utils.getUserFromFB(getAccesToken(), APP_SECRET);
 		/*
 		 * variable contains user Id
 		 */
         String idU = me.getId();
+        postService.saveOrUpdatePost(postList,idU);
 
-        int countMy = postService.getCountPost(idU);
-		/*
-		 * Fill database table if it is empty
-		 */
-        System.out.println("Number FB post=" + count
-                + "\n Number records our DB=" + countMy);
-        List<PostRO> postROList = postService.getMessage(idU);
-        if (postROList.isEmpty()) {
-            for (com.restfb.types.Post postObj : postList) {
-                if (!StringUtils.isEmpty(postObj.getMessage())) {
-                    postService.saveOrUpdatePost(postObj, idU);
-                }
-            }
-        } else {
-            for (com.restfb.types.Post postObj : postList) {
-                boolean contains = false;
-                for (PostRO postRO : postROList) {
-                    if (postRO.getIdPost().equals(postObj.getId()) || StringUtils.isEmpty(postObj.getMessage())) {
-                        contains = true;
-                    }
-                }
-                if (!contains) {
-                    postService.saveOrUpdatePost(postObj, idU);
-                }
-            }
-        }
-
-        postlist = postService.getMessage(idU);
+        List<PostRO> postlist = postService.getMessage(idU);
 
         modelAndView.addObject("post", postlist);
         modelAndView.addObject("user", userService.getUser(idU));
-
-
         return modelAndView;
-
     }
 
     /**

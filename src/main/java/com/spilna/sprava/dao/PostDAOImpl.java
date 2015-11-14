@@ -183,40 +183,65 @@ public class PostDAOImpl implements PostDAO {
 
     @Override
     @Transactional
-    public void saveOrUpdatePost (com.restfb.types.Post post, String idUser) {
-        try {
-            Session session = openSession();
-            Post postInf = new Post();
-            postInf.setIdPost(post.getId());
-            if (!StringUtils.isEmpty(post.getMessage())) {
-                postInf.setPost(URLEncoder.encode(post.getMessage(), "UTF8"));
-                List<Post> postList = getAllPostInf();
-                if (!CollectionUtils.isEmpty(postList)) {
-                    List<PostRO> postROList = new ArrayList<>();
-                    for (Post postObj : postList) {
-                        postROList.add(new PostRO(postObj));
+    public void saveOrUpdatePost (List<com.restfb.types.Post> postList, String idUser) {
+            List<PostRO> postROList = getMessage(idUser);
+            if (postROList.isEmpty()) {
+                for (com.restfb.types.Post postObj : postList) {
+                    if (!StringUtils.isEmpty(postObj.getMessage())) {
+                        savePost(postObj, idUser);
                     }
-
-                    InterestOfPost interestOfPost = new InterestOfPost();
-                    interestOfPost.setInterest(String.valueOf(utils.getInterestByExistsInterestInPost(post.getMessage(), postROList).getValue()));
-                    interestOfPost.setPost(postInf);
-                    postInf.setInterestOfPost(interestOfPost);
+                }
+            } else {
+                for (com.restfb.types.Post postObj : postList) {
+                    boolean contains = false;
+                    for (PostRO postRO : postROList) {
+                        if (postRO.getIdPost().equals(postObj.getId()) || StringUtils.isEmpty(postObj.getMessage())) {
+                            contains = true;
+                        }
+                    }
+                    if (!contains) {
+                        savePost(postObj, idUser);
+                    }
                 }
             }
-            if (postInf.getInterestOfPost() == null) {
+
+    }
+
+    private void savePost(com.restfb.types.Post post, String idUser) {
+        try{
+        Session session = openSession();
+        Post postInf = new Post();
+        postInf.setIdPost(post.getId());
+        if (!StringUtils.isEmpty(post.getMessage())) {
+            postInf.setPost(URLEncoder.encode(post.getMessage(), "UTF8"));
+            List<Post> postList = getAllPostInf();
+            if (!CollectionUtils.isEmpty(postList)) {
+                List<PostRO> postROList = new ArrayList<>();
+                for (Post postObj : postList) {
+                    postROList.add(new PostRO(postObj));
+                }
+
                 InterestOfPost interestOfPost = new InterestOfPost();
-                interestOfPost.setInterest(String.valueOf(Interest.OTHER.getValue()));
+                interestOfPost.setInterest(String.valueOf(utils.getInterestByExistsInterestInPost(post.getMessage(), postROList).getValue()));
                 interestOfPost.setPost(postInf);
                 postInf.setInterestOfPost(interestOfPost);
             }
-            postInf.setIdUser(idUser);
-            InterestOfPost interestOfPost = postInf.getInterestOfPost();
-            postInf.setInterestOfPost(null);
-            session.save(postInf);
-            postInf.setInterestOfPost(interestOfPost);
-            session.save(postInf);
-        } catch (Exception ex) {
-            ex.printStackTrace();
         }
+        if (postInf.getInterestOfPost() == null) {
+            InterestOfPost interestOfPost = new InterestOfPost();
+            interestOfPost.setInterest(String.valueOf(Interest.OTHER.getValue()));
+            interestOfPost.setPost(postInf);
+            postInf.setInterestOfPost(interestOfPost);
+        }
+        postInf.setIdUser(idUser);
+        InterestOfPost interestOfPost = postInf.getInterestOfPost();
+        postInf.setInterestOfPost(null);
+        session.save(postInf);
+        postInf.setInterestOfPost(interestOfPost);
+        session.save(postInf);
+    } catch (Exception ex) {
+        ex.printStackTrace();
+
+    }
     }
 }

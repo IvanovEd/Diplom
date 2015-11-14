@@ -59,7 +59,7 @@ public class PostServiceImpl implements PostService {
     }
 
 	@Override
-	public void saveOrUpdatePost (com.restfb.types.Post post, String idUser){
+	public void saveOrUpdatePost (List<com.restfb.types.Post> post, String idUser){
 		messageDAO.saveOrUpdatePost(post, idUser);
 	}
 }
