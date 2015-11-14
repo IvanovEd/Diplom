@@ -157,10 +157,10 @@ public class FacebookController {
      * @throws IOException
      */
     @RequestMapping(value = "/savePost", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView saveUserMessage(@ModelAttribute("post") Post post, BindingResult result)
-            throws ClientProtocolException, IOException {
+    public ModelAndView saveUserMessage(@ModelAttribute("post") Post post, @RequestParam String userId)
+            throws IOException {
 
-        postService.addMessage(this.getAccesToken(), post);
+        postService.addMessage(this.getAccesToken(), post, userId);
 
         System.out.println("Save User Message");
         return new ModelAndView("redirect:/post.html");// redirected

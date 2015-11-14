@@ -19,7 +19,7 @@ import javax.persistence.Table;
 public class User {
 	@Id
 	@Column(name = "id_user")
-	private String idUser;
+	private String id;
 	@Column(name = "name")
 	private String name;
 	@Column(name = "token")
@@ -29,12 +29,12 @@ public class User {
 
 
 	
-	public String getIdU() {
-		return idUser;
+	public String getId() {
+		return id;
 	}
 
-	public void setIdU(String idU) {
-		this.idUser = idU;
+	public void setId(String idU) {
+		this.id = idU;
 	}
 
 	public String getName() {

@@ -84,11 +84,11 @@ input {
 		
 				<!-- Get name current user -->
 				
-		<div style="color: teal; font-size: 30px"> Hello 
+		<div style="color: teal; font-size: 30px"> Hello
 		<c:if test="${!empty user}">
 
 			<c:forEach items="${user}" var="user">
-
+                <c:set var="userId" value="${user.id}"/>
 				<c:out value="${user.name}" />
 			</c:forEach>
 		</c:if>
@@ -103,7 +103,7 @@ input {
 
 		<!-- After saving the message is redirected /savePost -->
 		
-		<c:url var="userMessage" value="savePost.html" />
+		<c:url var="userMessage" value="savePost.html?userId=${userId}" />
 		<form:form id="messageForm" modelAttribute="post" method="post"
 			action="${userMessage}">
 			<table width="400px" height="150px">

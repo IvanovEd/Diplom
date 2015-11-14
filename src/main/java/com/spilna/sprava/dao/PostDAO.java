@@ -14,7 +14,7 @@ import com.spilna.sprava.model.PostRO;
 public interface PostDAO {
 	
 	/** Save and publish messages to facebook*/
-	public void saveMessage (String token, Post message );
+	public void saveMessage (String token, Post message, String userId );
 	/** Saving the post in the database*/
 	public void saveMessage (String idP, String idU,String message); 
 	/**Getting the user record from the database*/ 

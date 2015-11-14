@@ -65,7 +65,7 @@ public class UserDAOImpl implements UserDAO {
 //            q.setParameter("city", cityName);
 //            q.setParameter("region", region);
             User user = new User();
-            user.setIdU(id);
+            user.setId(id);
             user.setCity(cityName);
             user.setRegion(region);
             user.setName(name);
@@ -90,7 +90,7 @@ public class UserDAOImpl implements UserDAO {
 
 		/** Getting a list of users  */
 		Criteria crit = openSession().createCriteria(User.class);
-		crit.add(Restrictions.like("idUser", id));
+		crit.add(Restrictions.like("id", id));
 			List<User>	userList=crit.addOrder(Order.desc("id")).list();
 		return userList;
 	}	 

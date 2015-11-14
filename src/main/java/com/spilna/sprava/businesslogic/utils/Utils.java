@@ -6,6 +6,7 @@ import com.restfb.Parameter;
 import com.restfb.Version;
 import com.restfb.json.JsonArray;
 import com.restfb.json.JsonObject;
+import com.restfb.types.FacebookType;
 import com.restfb.types.Post;
 import com.restfb.types.User;
 import com.spilna.sprava.businesslogic.enums.Interest;
@@ -28,7 +29,7 @@ import java.util.Map;
 public class Utils {
     private RestTemplate restTemplate = new RestTemplate();
 
-    private final long LIMIT_PERCENT = 30;
+    private final long LIMIT_PERCENT = 40;
 
     public String searchRegionByCity(String cityName, String token) {
         String urlForSearch = "https://graph.facebook.com/v2.5/search?type=adgeolocation&q=" + cityName
@@ -88,6 +89,15 @@ public class Utils {
         return user;
     }
 
+    public FacebookType publishPostOnFB (String token, String postText) {
+
+        DefaultFacebookClient fbClient = new DefaultFacebookClient(token);
+        FacebookType publishMessageResponse = fbClient.publish("me/feed",
+                FacebookType.class, Parameter.with("message", postText));
+
+        return publishMessageResponse;
+    }
+
     public Map<String, Long> getPercentOfInterestMap(List<PostRO> postROs, boolean withPercent) {
         long generalSize = postROs.size();
         long politcsSize = 0;
@@ -122,7 +132,7 @@ public class Utils {
         if (!CollectionUtils.isEmpty(postROList) && !StringUtils.isEmpty(postText)) {
             for (PostRO postRO : postROList) {
                 if (!StringUtils.isEmpty(postRO.getPost()) && !StringUtils.isEmpty(postRO.getInterest())) {
-                    if (isLooksLike(postText, postRO.getPost())) {
+                    if (isLooksLike(postText, postRO.getPost()) && !Interest.OTHER.name().equals(postRO.getInterest())) {
                         return Interest.valueOf(postRO.getInterest());
                     }
                 }
@@ -132,7 +142,13 @@ public class Utils {
     }
 
     private boolean isLooksLike(String postText, String postWithInterest) {
+        if (postText.length() < 5) {
+            return false;
+        }
         if (postText.equalsIgnoreCase(postWithInterest)) {
+            return true;
+        }
+        if (postWithInterest.contains(postText)) {
             return true;
         }
         String[] splitString = postWithInterest.split(" ");
@@ -141,6 +157,16 @@ public class Utils {
         }
         String[] splitStringByComma = postWithInterest.split(",");
         if (getPercent(splitString.length, getEqualsCount(splitStringByComma, postText), true) >= LIMIT_PERCENT) {
+            return true;
+        }
+        char[] postCharArray = postText.toCharArray();
+        long count = 0;
+        for (Character character : postCharArray) {
+            if (postWithInterest.contains(String.valueOf(character))) {
+                count++;
+            }
+        }
+        if (getPercent(Long.valueOf(postText.length()), count, true) >= LIMIT_PERCENT) {
             return true;
         }
         return false;

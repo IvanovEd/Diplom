@@ -24,8 +24,8 @@ public class PostServiceImpl implements PostService {
 	@Override
 	@Transactional
 	/* Add message */
-	public void addMessage( String token,Post message) {
-		messageDAO.saveMessage(token, message);
+	public void addMessage( String token,Post message, String userId) {
+		messageDAO.saveMessage(token, message, userId);
 
 	}
 	
