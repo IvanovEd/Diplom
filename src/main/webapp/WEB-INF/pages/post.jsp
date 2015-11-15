@@ -97,8 +97,8 @@ input {
 		<br>
         <%--<input id="cb" type="checkbox" onchange="window.location.href='http://google.com/'">--%>
         <div>
-            <input type=button onClick="parent.location='ukraineMap.html?interest=1'" value='Politic' class="for_map_link">
-            <input type=button onClick="parent.location='ukraineMap.html?interest=2'" value='Music' class="for_map_link">
+            <input type=button onClick="parent.location='ukraineMap.html?interest=1'" value='News' class="for_map_link">
+            <input type=button onClick="parent.location='ukraineMap.html?interest=2'" value='Politics' class="for_map_link">
         </div>
 
 		<!-- After saving the message is redirected /savePost -->
@@ -128,8 +128,8 @@ input {
                                 <display:column property="interest" title="Interest" sortable="true"
                                                 style="border: 1px solid teal; " />
 								<display:column title="Set">
-									<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=1" >Politics</a>
-                                    <a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2">Music</a>
+									<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=1" >News</a>
+                                    <a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2">Politics</a>
 								</display:column>
 							</display:table>
 

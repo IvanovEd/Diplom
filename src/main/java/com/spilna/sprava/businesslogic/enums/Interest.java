@@ -4,10 +4,16 @@ package com.spilna.sprava.businesslogic.enums;
  * Created by Ivanov on 05.11.15.
  */
 public enum Interest {
-    POLITIC(1),
-    MUSIC(2),
-    UNKNOWN(2),
-    OTHER(3);
+    NEWS(1),
+    POLITIC(2),
+    GAMES(3),
+    MUSIC(4),
+    SPORT(5),
+    SCIENCE(6),
+    BUSINESS(7),
+    CINEMA(8),
+    HUMOR(9),
+    OTHER(10);
     private final int value;
 
     private Interest(int value) {

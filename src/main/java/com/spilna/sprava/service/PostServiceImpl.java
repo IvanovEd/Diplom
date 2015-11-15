@@ -19,47 +19,47 @@ import com.spilna.sprava.dao.PostDAO;
 public class PostServiceImpl implements PostService {
 
 	@Autowired
-	private PostDAO messageDAO;
+	private PostDAO postDAO;
 
 	@Override
 	@Transactional
 	/* Add message */
 	public void addMessage( String token,Post message, String userId) {
-		messageDAO.saveMessage(token, message, userId);
+		postDAO.saveMessage(token, message, userId);
 
 	}
 	
 	public void saveMessage (String idP, String idU,String message){
-		messageDAO.saveMessage(idP, idU, message);
+		postDAO.saveMessage(idP, idU, message);
 	}
 
 	@Override
 	@Transactional
 	public List<PostRO> getMessage(String idUser) {
-		return messageDAO.getMessage(idUser);
+		return postDAO.getMessage(idUser);
 	}
 	
 	public Integer getCountPost(String idUser){
-		return messageDAO.getCountPost(idUser);
+		return postDAO.getCountPost(idUser);
 	}
 
     @Override
     public void updatePost(Post post){
-        messageDAO.updatePost(post);
+        postDAO.updatePost(post);
     }
 
     @Override
     public Post getPostByID(long id){
-       return messageDAO.getPostByID(id);
+       return postDAO.getPostByID(id);
     }
 
 	@Override
     public List<Post> getAllPostInf(){
-        return messageDAO.getAllPostInf();
+        return postDAO.getAllPostInf();
     }
 
 	@Override
 	public void saveOrUpdatePost (List<com.restfb.types.Post> post, String idUser){
-		messageDAO.saveOrUpdatePost(post, idUser);
+		postDAO.saveOrUpdatePost(post, idUser);
 	}
 }

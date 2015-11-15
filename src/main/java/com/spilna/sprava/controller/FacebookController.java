@@ -178,7 +178,7 @@ public class FacebookController {
         map.put(ODESSA.getValue(), "80");
         map.put(VINNITSA.getValue(), "80");
         map.put(LVIVSKA.getValue(), "80");
-        map.put(IVANOFRANKIVSK.getValue(), "80");
+        map.put(IVANOFRANKIVSK.getValue(), "200");
         map.put(ZHITOMERSKA.getValue(), "80");
         map.put(HARKIVSKA.getValue(), "80");
         map.put(SUMSKA.getValue(), "80");
@@ -186,7 +186,7 @@ public class FacebookController {
         map.put(LUGANSKA.getValue(), "80");
         map.put(MIKOLAEVSKA.getValue(), "80");
         map.put(VOLINSKA.getValue(), "80");
-        map.put(CHERNIGIVSKA.getValue(), "80");
+        map.put(CHERNIGIVSKA.getValue(), "400");
         map.put(CHERKASKA.getValue(), "80");
         map.put(ZAKARPATSKA.getValue(), "566");
         map.put(ZAPORIZHSKA.getValue(), "80");
