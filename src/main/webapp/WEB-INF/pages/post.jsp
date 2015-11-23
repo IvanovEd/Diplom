@@ -31,6 +31,15 @@ input {
     font-family: Verdana;
     font-weight: bold;
 }
+	.for_interest {
+		height: 30px;
+		width: 67px;
+		cursor: pointer;
+		color: teal;
+		font-size: 9px;
+		font-family: Verdana;
+		font-weight: bold;
+	}
 </style>
 
 <body>
@@ -39,7 +48,7 @@ input {
 	<script src="http://connect.facebook.net/en_US/all.js"></script>
 	<script type="text/javascript">
 	function logout() {
-		
+
 		FB.init({
 		    appId      : '913574692064006',
 		    status     : true,
@@ -59,7 +68,7 @@ input {
 	            }
 	        });
 	    }
-	 
+
 	    function redirect() {
 	        // This is the logout URL you want to be redirected to after the user
 	        // logs out of Facebook, if they've logged in with Facebook.
@@ -72,8 +81,8 @@ input {
     function Redirect(id, interes) {
         window.location="http://localhost:8080/selectInterest?id="+id;
     }
-	
-  
+
+
 </script>
 	<center>
 		<br>
@@ -81,9 +90,9 @@ input {
 		<br>
 		<br>
 
-		
+
 				<!-- Get name current user -->
-				
+
 		<div style="color: teal; font-size: 30px"> Hello
 		<c:if test="${!empty user}">
 
@@ -102,7 +111,7 @@ input {
         </div>
 
 		<!-- After saving the message is redirected /savePost -->
-		
+
 		<c:url var="userMessage" value="savePost.html?userId=${userId}" />
 		<form:form id="messageForm" modelAttribute="post" method="post"
 			action="${userMessage}">
@@ -113,13 +122,13 @@ input {
 							<!-- Text block -->
 							<textarea name="post" rows=7 cols=50></textarea>
 							<!-- Button -->
-							<input  type="submit" value="Send"> 
+							<input  type="submit" value="Send">
 							<input  type="reset">
-							
+
 						</form> <br>
 						<!-- a table that shows a limited number of records -->
 						<center>
-							<display:table id="row" name="post" requestURI="" pagesize="10"
+							<display:table id="row" name="post" requestURI="" style="width: 250%;text-align: left;word-wrap:break-word;" pagesize="10"
 								export="true">
 								<display:column property="id" title="Id" sortable="true"
 									style="border: 1px solid teal;  " />
@@ -128,8 +137,30 @@ input {
                                 <display:column property="interest" title="Interest" sortable="true"
                                                 style="border: 1px solid teal; " />
 								<display:column title="Set">
-									<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=1" >News</a>
-                                    <a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2">Politics</a>
+									<div text-align="center" >
+
+									<input type=button onClick="parent.location='selectInterest.html?id=${row.id}&interest=1'" value='News' class="for_interest">
+									<input type=button onClick="parent.location='selectInterest.html?id=${row.id}&interest=2'" value='Politics' class="for_interest">
+									<input type=button onClick="parent.location='selectInterest.html?id=${row.id}&interest=3'" value='GAMES' class="for_interest">
+									<input type=button onClick="parent.location='selectInterest.html?id=${row.id}&interest=4'" value='MUSIC' class="for_interest">
+									<input type=button onClick="parent.location='selectInterest.html?id=${row.id}&interest=5'" value='SPORT' class="for_interest">
+									<input type=button onClick="parent.location='selectInterest.html?id=${row.id}&interest=6'" value='SCIENCE' class="for_interest">
+									<input type=button onClick="parent.location='selectInterest.html?id=${row.id}&interest=7'" value='BUSINESS' class="for_interest">
+									<input type=button onClick="parent.location='selectInterest.html?id=${row.id}&interest=8'" value='CINEMA' class="for_interest">
+									<input type=button onClick="parent.location='selectInterest.html?id=${row.id}&interest=9'" value='HUMOR' class="for_interest">
+									<input type=button onClick="parent.location='selectInterest.html?id=${row.id}&interest=10'" value='OTHER' class="for_interest">
+
+									</div>
+									<%--<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=1" >News</a>--%>
+                                    <%--<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2">Politics</a>--%>
+                                    <%--<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2">GAMES</a>--%>
+                                    <%--<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2">MUSIC</a>--%>
+                                    <%--<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2">SPORT</a>--%>
+                                    <%--<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2">SCIENCE</a>--%>
+                                    <%--<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2">BUSINESS</a>--%>
+                                    <%--<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2">CINEMA</a>--%>
+                                    <%--<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2">HUMOR</a>--%>
+                                    <%--<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2">OTHER</a>--%>
 								</display:column>
 							</display:table>
 
