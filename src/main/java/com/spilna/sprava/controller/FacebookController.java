@@ -1,19 +1,12 @@
 package com.spilna.sprava.controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.restfb.FacebookClient;
-import com.restfb.Parameter;
-import com.restfb.Version;
 import com.spilna.sprava.businesslogic.utils.Utils;
 
 import static com.spilna.sprava.businesslogic.enums.Oblast.*;
@@ -21,15 +14,13 @@ import static com.spilna.sprava.businesslogic.enums.Oblast.*;
 import com.spilna.sprava.businesslogic.enums.Oblast;
 import com.spilna.sprava.model.InterestOfPost;
 import com.spilna.sprava.model.Post;
-import com.spilna.sprava.model.PostRO;
+import com.spilna.sprava.businesslogic.object.PostRO;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
 import org.apache.http.client.ClientProtocolException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 
-import com.restfb.DefaultFacebookClient;
 import com.restfb.types.User;
 import com.spilna.sprava.service.PostService;
 import com.spilna.sprava.service.UserService;
@@ -168,7 +158,7 @@ public class FacebookController {
     }
 
     @RequestMapping(value = "/ukraineMap", method = RequestMethod.GET)
-    public ModelAndView lookMap(@RequestParam long interest)
+    public ModelAndView lookMap(@RequestParam(required = false)  Long interest)
             throws IOException {
         ModelAndView modelAndView = new ModelAndView("ukrainMap");
         List<Post> postList = postService.getAllPostInf();
@@ -199,7 +189,7 @@ public class FacebookController {
         map.put(HERSONSKA.getValue(), "80");
         map.put(CHERNIVETSKA.getValue(), "80");
         map.put(KRYM.getValue(), "80");
-        modelAndView.addObject("values", map);
+        modelAndView.addObject("valuesMap", map);
 
         List<PostRO> postROList = new ArrayList<>();
         if (!CollectionUtils.isEmpty(postList)) {

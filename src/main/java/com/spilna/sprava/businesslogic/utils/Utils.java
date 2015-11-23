@@ -10,7 +10,7 @@ import com.restfb.types.FacebookType;
 import com.restfb.types.Post;
 import com.restfb.types.User;
 import com.spilna.sprava.businesslogic.enums.Interest;
-import com.spilna.sprava.model.PostRO;
+import com.spilna.sprava.businesslogic.object.PostRO;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -103,13 +103,42 @@ public class Utils {
         long politcsSize = 0;
         long musicSize = 0;
         long other = 0;
+        long newsSize = 0;
+        long gamesSize=0;
+        long sportSize=0;
+        long scienceSize=0;
+        long businessSize=0;
+        long cinemaSize=0;
+        long humorSize=0;
         for (PostRO postRO : postROs) {
             if (postRO.getInterest() != null) {
                 if (postRO.getInterest().equals(Interest.POLITIC.name())) {
                     politcsSize++;
                 } else if (postRO.getInterest().equals(Interest.MUSIC.name())) {
                     musicSize++;
-                } else {
+                }
+                else if (postRO.getInterest().equals(Interest.CINEMA.name())) {
+                    cinemaSize++;
+                }
+                else if (postRO.getInterest().equals(Interest.SCIENCE.name())) {
+                    scienceSize++;
+                }
+                else if (postRO.getInterest().equals(Interest.BUSINESS.name())) {
+                    businessSize++;
+                }
+                else if (postRO.getInterest().equals(Interest.HUMOR.name())) {
+                    humorSize++;
+                }
+                else if (postRO.getInterest().equals(Interest.GAMES.name())) {
+                    gamesSize++;
+                }
+                else if (postRO.getInterest().equals(Interest.NEWS.name())) {
+                    newsSize++;
+                }
+                else if (postRO.getInterest().equals(Interest.SPORT.name())) {
+                    sportSize++;
+                }
+                else {
                     other++;
                 }
             } else {
@@ -119,6 +148,13 @@ public class Utils {
         Map<String, Long> stringLongMap = new HashMap<>();
         stringLongMap.put(Interest.POLITIC.name(), getPercent(generalSize, politcsSize, withPercent));
         stringLongMap.put(Interest.MUSIC.name(), getPercent(generalSize, musicSize, withPercent));
+        stringLongMap.put(Interest.CINEMA.name(), getPercent(generalSize, cinemaSize, withPercent));
+        stringLongMap.put(Interest.SCIENCE.name(), getPercent(generalSize, scienceSize, withPercent));
+        stringLongMap.put(Interest.SPORT.name(), getPercent(generalSize, sportSize, withPercent));
+        stringLongMap.put(Interest.HUMOR.name(), getPercent(generalSize, humorSize, withPercent));
+        stringLongMap.put(Interest.GAMES.name(), getPercent(generalSize, gamesSize, withPercent));
+        stringLongMap.put(Interest.BUSINESS.name(), getPercent(generalSize, businessSize, withPercent));
+        stringLongMap.put(Interest.NEWS.name(), getPercent(generalSize, newsSize, withPercent));
         stringLongMap.put(Interest.OTHER.name(), getPercent(generalSize, other, withPercent));
 
         return stringLongMap;

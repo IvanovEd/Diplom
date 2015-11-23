@@ -32,6 +32,9 @@ public class Post {
 	private String post;
     @OneToOne(mappedBy = "post", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
     private InterestOfPost interestOfPost;
+//    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+//    @JoinColumn(name="id_user")
+//    private User user;
 
     public Post() {}
 

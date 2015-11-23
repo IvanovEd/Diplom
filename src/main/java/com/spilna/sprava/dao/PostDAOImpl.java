@@ -9,22 +9,18 @@ import com.spilna.sprava.businesslogic.utils.Utils;
 import com.spilna.sprava.businesslogic.enums.Interest;
 import com.spilna.sprava.model.InterestOfPost;
 import com.spilna.sprava.model.Post;
-import com.spilna.sprava.model.PostRO;
+import com.spilna.sprava.businesslogic.object.PostRO;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.*;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.orm.hibernate3.HibernateQueryException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.restfb.DefaultFacebookClient;
-import com.restfb.Parameter;
 import com.restfb.exception.FacebookException;
 import com.restfb.types.FacebookType;
-import com.restfb.types.User;
 import org.springframework.util.CollectionUtils;
 
 /**

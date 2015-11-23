@@ -40,9 +40,16 @@ input {
 		font-family: Verdana;
 		font-weight: bold;
 	}
+.right {
+    position: absolute;
+    right: -5px;
+    width: 900px;
+    border:3px solid #73AD21;
+    padding: 10px;
+}
 </style>
 
-<body>
+<body class="right">
 	<div id="fb-root"></div>
 	<!-- script out of the Facebook -->
 	<script src="http://connect.facebook.net/en_US/all.js"></script>
@@ -84,7 +91,6 @@ input {
 
 
 </script>
-	<center>
 		<br>
 		<br>
 		<br>
@@ -106,8 +112,7 @@ input {
 		<br>
         <%--<input id="cb" type="checkbox" onchange="window.location.href='http://google.com/'">--%>
         <div>
-            <input type=button onClick="parent.location='ukraineMap.html?interest=1'" value='News' class="for_map_link">
-            <input type=button onClick="parent.location='ukraineMap.html?interest=2'" value='Politics' class="for_map_link">
+            <input type=button onClick="parent.location='ukraineMap.html'" value='Statistic' class="for_map_link">
         </div>
 
 		<!-- After saving the message is redirected /savePost -->
@@ -173,6 +178,5 @@ input {
                 <input type="button" value="Load new document" onclick="newDoc()">
 			</p>
 		</form:form>
-	</center>
 </body>
 </html>

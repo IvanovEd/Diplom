@@ -16,16 +16,30 @@
         google.load("visualization", "1", {packages: ["corechart"]});
         google.setOnLoadCallback(drawChart);
         function drawChart() {
-            var POLITIC, MUSIC, OTHER;
+            var NEWS,POLITIC,GAMES,MUSIC,SPORT,SCIENCE,BUSINESS,CINEMA,HUMOR,OTHER;
             <c:if test="${!empty valuesForPio}">
-            POLITIC = ${valuesForPio["POLITIC"]},
+            NEWS = ${valuesForPio["NEWS"]},
+                    POLITIC = ${valuesForPio["POLITIC"]},
                     MUSIC = ${valuesForPio["MUSIC"]},
-                    OTHER = ${valuesForPio["OTHER"]}
+                    SPORT = ${valuesForPio["SPORT"]},
+                    SCIENCE = ${valuesForPio["SCIENCE"]},
+                    BUSINESS = ${valuesForPio["BUSINESS"]},
+                    CINEMA = ${valuesForPio["CINEMA"]},
+                    OTHER = ${valuesForPio["OTHER"]},
+                    HUMOR = ${valuesForPio["HUMOR"]},
+                    GAMES = ${valuesForPio["GAMES"]}
             </c:if>;
             var data = google.visualization.arrayToDataTable([
                 ['Task', 'Hours per Day'],
+                ['NEWS', NEWS],
                 ['POLITIC', POLITIC],
+                ['GAMES', GAMES],
                 ['MUSIC', MUSIC],
+                ['SPORT', SPORT],
+                ['SCIENCE', CINEMA],
+                ['BUSINESS', BUSINESS],
+                ['CINEMA', POLITIC],
+                ['HUMOR', HUMOR],
                 ['OTHER', OTHER]
             ]);
 
@@ -45,32 +59,32 @@
 
         function drawRegionsMap() {
             var kyivska, krym, zakarpatska, odesska, vinnitska, lvivska, ivanofrankivska, zhitomerska, harkiv, sumska, donetska, luhanska, mikolaivska, volinska, chernigivska, cherkaska, zakarpatska, zaporizhska, kirovogradska, ternopilska, hmelnitska, dnipropetrovska, poltavska, rivnenska, hersonska, chernivetska;
-            <c:if test="${!empty values}">
-            kyivska = ${values["kuyivska"]},
-                    odesska = ${values["odesska"]},
-                    vinnitska = ${values["vinnitska"]},
-                    lvivska = ${values["lvivska"]},
-                    ivanofrankivska = ${values["ivanofrankivska"]},
-                    zhitomerska = ${values["zhitomerska"]},
-                    harkiv = ${values["harkiv"]},
-                    sumska = ${values["sumska"]},
-                    donetska = ${values["donetska"]},
-                    luhanska = ${values["luhanska"]},
-                    mikolaivska = ${values["mikolaivska"]},
-                    volinska = ${values["volinska"]},
-                    chernigivska = ${values["chernigivska"]},
-                    cherkaska = ${values["cherkaska"]},
-                    zakarpatska = ${values["zakarpatska"]},
-                    zaporizhska = ${values["zaporizhska"]},
-                    kirovogradska = ${values["kirovogradska"]},
-                    ternopilska = ${values["ternopilska"]},
-                    hmelnitska = ${values["hmelnitska"]},
-                    dnipropetrovska = ${values["dnipropetrovska"]},
-                    poltavska = ${values["poltavska"]},
-                    rivnenska = ${values["rivnenska"]},
-                    hersonska = ${values["hersonska"]},
-                    krym = ${values["krym"]},
-                    chernivetska = ${values["chernivetska"]};
+            <c:if test="${!empty valuesMap}">
+            kyivska = ${valuesMap["kuyivska"]},
+                    odesska = ${valuesMap["odesska"]},
+                    vinnitska = ${valuesMap["vinnitska"]},
+                    lvivska = ${valuesMap["lvivska"]},
+                    ivanofrankivska = ${valuesMap["ivanofrankivska"]},
+                    zhitomerska = ${valuesMap["zhitomerska"]},
+                    harkiv = ${valuesMap["harkiv"]},
+                    sumska = ${valuesMap["sumska"]},
+                    donetska = ${valuesMap["donetska"]},
+                    luhanska = ${valuesMap["luhanska"]},
+                    mikolaivska = ${valuesMap["mikolaivska"]},
+                    volinska = ${valuesMap["volinska"]},
+                    chernigivska = ${valuesMap["chernigivska"]},
+                    cherkaska = ${valuesMap["cherkaska"]},
+                    zakarpatska = ${valuesMap["zakarpatska"]},
+                    zaporizhska = ${valuesMap["zaporizhska"]},
+                    kirovogradska = ${valuesMap["kirovogradska"]},
+                    ternopilska = ${valuesMap["ternopilska"]},
+                    hmelnitska = ${valuesMap["hmelnitska"]},
+                    dnipropetrovska = ${valuesMap["dnipropetrovska"]},
+                    poltavska = ${valuesMap["poltavska"]},
+                    rivnenska = ${valuesMap["rivnenska"]},
+                    hersonska = ${valuesMap["hersonska"]},
+                    krym = ${valuesMap["krym"]},
+                    chernivetska = ${valuesMap["chernivetska"]};
             </c:if>
             var data = google.visualization.arrayToDataTable([
                 ['City', 'Site'],
@@ -127,7 +141,7 @@
     </c:if>
     :)
 </div>
-<div id="chart_div_pio" style="width: 400px; height: 240px;"></div>
+<div id="chart_div_pio" style="width: 500px; height: 350px;"></div>
 <div id="chart_div" style="width: 600px; height: 400px;"></div>
 </body>
 </html>

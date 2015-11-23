@@ -3,7 +3,7 @@ package com.spilna.sprava.service;
 import java.util.List;
 
 import com.spilna.sprava.model.Post;
-import com.spilna.sprava.model.PostRO;
+import com.spilna.sprava.businesslogic.object.PostRO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

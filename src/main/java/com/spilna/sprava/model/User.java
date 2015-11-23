@@ -1,9 +1,7 @@
 package com.spilna.sprava.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * @author Ivanov Eduard
@@ -26,6 +24,8 @@ public class User {
 	private String token;
 	private String city;
 	private String region;
+//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+//    private Set<Post> postSet;
 
 
 	

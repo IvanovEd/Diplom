@@ -1,6 +1,7 @@
-package com.spilna.sprava.model;
+package com.spilna.sprava.businesslogic.object;
 
 import com.spilna.sprava.businesslogic.enums.Interest;
+import com.spilna.sprava.model.Post;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
