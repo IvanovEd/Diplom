@@ -10,6 +10,39 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib uri="http://displaytag.sf.net" prefix="display" %>
 <html>
+<style type="text/css">
+    input {
+        height: 50px;
+        width: 100px;
+        cursor: pointer;
+        color: teal;
+        font-size: 15px;
+        font-family: Verdana;
+        font-weight: bold;
+    }
+    .for_map_link {
+        height: 40px;
+        width: 70px;
+        cursor: pointer;
+        color: teal;
+        font-size: 10px;
+        font-family: Verdana;
+        font-weight: bold;
+    }
+    .for_interest {
+        height: 30px;
+        width: 67px;
+        cursor: pointer;
+        color: teal;
+        font-size: 9px;
+        font-family: Verdana;
+        font-weight: bold;
+    }
+    .center {
+        width: 800px;
+        margin: 0 auto;
+    }
+</style>
 <head>
     <script type='text/javascript' src='https://www.google.com/jsapi'></script>
     <script type="text/javascript">
@@ -123,25 +156,40 @@
     </script>
 
 </head>
-<body>
-<div style="color: teal; font-size: 30px"> Hello
-    <c:if test="${!empty values}">
+<body class="center">
+<div style="color: teal; font-size: 30px">
 
-        <c:forEach items="${values}" var="val">
+    <!-- check values, uncommented for test -->
+    <%--<c:if test="${!empty values}">--%>
 
-            <c:out value="${val.key}"/>
-        </c:forEach>
-    </c:if>
+        <%--<c:forEach items="${values}" var="val">--%>
 
-    <c:if test="${!empty valuesForPio}">
-        <c:forEach items="${valuesForPio}" var="val">
+            <%--<c:out value="${val.key}"/>--%>
+        <%--</c:forEach>--%>
+    <%--</c:if>--%>
 
-            <c:out value="${val.value}"/>
-        </c:forEach>
-    </c:if>
-    :)
+    <%--<c:if test="${!empty valuesForPio}">--%>
+        <%--<c:forEach items="${valuesForPio}" var="val">--%>
+
+            <%--<c:out value="${val.value}"/>--%>
+        <%--</c:forEach>--%>
+    <%--</c:if>--%>
+    <input type=button onClick="parent.location='ukraineMap.html?interest=1'" value='News' class="input">
 </div>
+
 <div id="chart_div_pio" style="width: 500px; height: 350px;"></div>
+<div >
+    <input type=button onClick="parent.location='ukraineMap.html?interest=1'" value='News' class="for_interest">
+    <input type=button onClick="parent.location='ukraineMap.html?interest=2'" value='Politics' class="for_interest">
+    <input type=button onClick="parent.location='ukraineMap.html?interest=3'" value='GAMES' class="for_interest">
+    <input type=button onClick="parent.location='ukraineMap.html?interest=4'" value='MUSIC' class="for_interest">
+    <input type=button onClick="parent.location='ukraineMap.html?interest=5'" value='SPORT' class="for_interest">
+    <input type=button onClick="parent.location='ukraineMap.html?interest=6'" value='SCIENCE' class="for_interest">
+    <input type=button onClick="parent.location='ukraineMap.html?interest=7'" value='BUSINESS' class="for_interest">
+    <input type=button onClick="parent.location='ukraineMap.html?interest=8'" value='CINEMA' class="for_interest">
+    <input type=button onClick="parent.location='ukraineMap.html?interest=9'" value='HUMOR' class="for_interest">
+    <input type=button onClick="parent.location='ukraineMap.html?interest=10'" value='OTHER' class="for_interest">
+</div>
 <div id="chart_div" style="width: 600px; height: 400px;"></div>
 </body>
 </html>

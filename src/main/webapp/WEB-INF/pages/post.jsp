@@ -31,7 +31,7 @@ input {
     font-family: Verdana;
     font-weight: bold;
 }
-	.for_interest {
+.for_interest {
 		height: 30px;
 		width: 67px;
 		cursor: pointer;
@@ -40,16 +40,13 @@ input {
 		font-family: Verdana;
 		font-weight: bold;
 	}
-.right {
-    position: absolute;
-    right: -5px;
-    width: 900px;
-    border:3px solid #73AD21;
-    padding: 10px;
+.center {
+	width: 800px;
+	margin: 0 auto;
 }
 </style>
 
-<body class="right">
+<body class="center">
 	<div id="fb-root"></div>
 	<!-- script out of the Facebook -->
 	<script src="http://connect.facebook.net/en_US/all.js"></script>
