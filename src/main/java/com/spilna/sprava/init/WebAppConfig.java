@@ -5,10 +5,7 @@ import java.util.Properties;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -29,6 +26,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 @ComponentScan("com.spilna.sprava")
 /**plugs in property file which located in the resource folder.*/
 @PropertySource("classpath:application.properties")
+@Import({ SecurityConfig.class })
 
 public class WebAppConfig {
 	

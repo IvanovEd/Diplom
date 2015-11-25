@@ -1,6 +1,7 @@
 package com.spilna.sprava.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 import javax.annotation.Resource;
@@ -158,37 +159,37 @@ public class FacebookController {
     }
 
     @RequestMapping(value = "/ukraineMap", method = RequestMethod.GET)
-    public ModelAndView lookMap(@RequestParam(required = false)  Long interest)
+    public ModelAndView lookMap(@RequestParam(required = false)  Long interest, String page)
             throws IOException {
         ModelAndView modelAndView = new ModelAndView("ukrainMap");
         List<Post> postList = postService.getAllPostInf();
         Map<String, String> map = new HashMap<>();
 
         map.put(KUIVSKA.getValue(), "80");
-        map.put(ODESSA.getValue(), "80");
-        map.put(VINNITSA.getValue(), "80");
-        map.put(LVIVSKA.getValue(), "80");
+        map.put(ODESSA.getValue(), "44");
+        map.put(VINNITSA.getValue(), "55");
+        map.put(LVIVSKA.getValue(), "89");
         map.put(IVANOFRANKIVSK.getValue(), "200");
-        map.put(ZHITOMERSKA.getValue(), "80");
-        map.put(HARKIVSKA.getValue(), "80");
-        map.put(SUMSKA.getValue(), "80");
-        map.put(DONETSKA.getValue(), "80");
-        map.put(LUGANSKA.getValue(), "80");
-        map.put(MIKOLAEVSKA.getValue(), "80");
-        map.put(VOLINSKA.getValue(), "80");
+        map.put(ZHITOMERSKA.getValue(), "67");
+        map.put(HARKIVSKA.getValue(), "234");
+        map.put(SUMSKA.getValue(), "156");
+        map.put(DONETSKA.getValue(), "437");
+        map.put(LUGANSKA.getValue(), "777");
+        map.put(MIKOLAEVSKA.getValue(), "34");
+        map.put(VOLINSKA.getValue(), "123");
         map.put(CHERNIGIVSKA.getValue(), "400");
-        map.put(CHERKASKA.getValue(), "80");
-        map.put(ZAKARPATSKA.getValue(), "566");
-        map.put(ZAPORIZHSKA.getValue(), "80");
-        map.put(KIROVOGRADSKA.getValue(), "80");
-        map.put(TERNOPILSKA.getValue(), "80");
-        map.put(HMELNITSKA.getValue(), "80");
-        map.put(DNIPROPETROVSKA.getValue(), "80");
-        map.put(POLTAVSKA.getValue(), "80");
-        map.put(RIVNENSKA.getValue(), "80");
-        map.put(HERSONSKA.getValue(), "80");
-        map.put(CHERNIVETSKA.getValue(), "80");
-        map.put(KRYM.getValue(), "80");
+        map.put(CHERKASKA.getValue(), "542");
+        map.put(ZAKARPATSKA.getValue(), "160");
+        map.put(ZAPORIZHSKA.getValue(), "77");
+        map.put(KIROVOGRADSKA.getValue(), "99");
+        map.put(TERNOPILSKA.getValue(), "130");
+        map.put(HMELNITSKA.getValue(), "444");
+        map.put(DNIPROPETROVSKA.getValue(), "340");
+        map.put(POLTAVSKA.getValue(), "300");
+        map.put(RIVNENSKA.getValue(), "342");
+        map.put(HERSONSKA.getValue(), "345");
+        map.put(CHERNIVETSKA.getValue(), "234");
+        map.put(KRYM.getValue(), "111");
         modelAndView.addObject("valuesMap", map);
 
         List<PostRO> postROList = new ArrayList<>();
@@ -199,6 +200,7 @@ public class FacebookController {
             postROList.add(new PostRO(post));
         }
         modelAndView.addObject("valuesForPio", utils.getPercentOfInterestMap(postROList, false));
+        modelAndView.addObject("page", page);
         StringBuilder stringBuilder = new StringBuilder();
         for (Oblast oblast : Oblast.values()) {
             stringBuilder.append(oblast.getValue() + ",");
@@ -233,6 +235,26 @@ public class FacebookController {
             interestOfPost.setPost(post);
             post.setInterestOfPost(interestOfPost);
         }
+    }
+
+    @RequestMapping(value = "/admin**", method = RequestMethod.GET)
+    public ModelAndView adminPage() throws UnsupportedEncodingException {
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        List<Post> postlist = postService.getAllPostInf();
+        List<PostRO> postROs = new ArrayList<>();
+        for (Post post : postlist) {
+            String userName = userService.getUser(post.getIdUser()).get(0).getName();
+            PostRO postRO = new PostRO(post);
+            postRO.setUserName(userName);
+            postROs.add(postRO);
+        }
+
+        modelAndView.addObject("post", postROs);
+        modelAndView.setViewName("admin");
+        return modelAndView;
+
     }
 
     private void init() {

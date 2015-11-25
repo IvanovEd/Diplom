@@ -29,7 +29,7 @@ import java.util.Map;
 public class Utils {
     private RestTemplate restTemplate = new RestTemplate();
 
-    private final long LIMIT_PERCENT = 40;
+    private final long LIMIT_PERCENT = 50;
 
     public String searchRegionByCity(String cityName, String token) {
         String urlForSearch = "https://graph.facebook.com/v2.5/search?type=adgeolocation&q=" + cityName
@@ -197,12 +197,20 @@ public class Utils {
         }
         char[] postCharArray = postText.toCharArray();
         long count = 0;
+        StringBuilder stringBuilder = new StringBuilder();
         for (Character character : postCharArray) {
             if (postWithInterest.contains(String.valueOf(character))) {
                 count++;
             }
+            stringBuilder.append(String.valueOf(character));
+            if (stringBuilder.length() == 3) {
+                if(postWithInterest.contains(stringBuilder.toString())){
+                    count++;
+                }
+                stringBuilder = new StringBuilder();
+            }
         }
-        if (getPercent(Long.valueOf(postText.length()), count, true) >= LIMIT_PERCENT) {
+        if (getPercent(Long.valueOf(postText.length()), count/2, true) >= LIMIT_PERCENT) {
             return true;
         }
         return false;

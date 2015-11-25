@@ -21,6 +21,8 @@ public class PostRO {
 
     private String interest;
 
+    private String userName;
+
 
 
 
@@ -72,5 +74,13 @@ public class PostRO {
 
     public void setInterest(String interest) {
         this.interest = interest;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

@@ -102,7 +102,7 @@ public class PostDAOImpl implements PostDAO {
         Session session = openSession();
         Criteria crit = session.createCriteria(Post.class);
         crit.add(Restrictions.like("idUser", idU));
-        List<Post> mesList = crit.addOrder(Order.asc("id")).list();
+        List<Post> mesList = crit.addOrder(Order.desc("id")).list();
         List<PostRO> postROs = new ArrayList<PostRO>();
 
         for (Post post : mesList) {
@@ -155,7 +155,7 @@ public class PostDAOImpl implements PostDAO {
     public List<Post> getAllPostInf() {
         List<Post> list = null;
         try {
-            list = openSession().createCriteria(Post.class).list();
+            list = openSession().createCriteria(Post.class).addOrder(Order.desc("id")).list();
         } catch (Exception ex) {
             ex.printStackTrace();
         }

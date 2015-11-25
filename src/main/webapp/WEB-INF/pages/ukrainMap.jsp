@@ -174,7 +174,7 @@
             <%--<c:out value="${val.value}"/>--%>
         <%--</c:forEach>--%>
     <%--</c:if>--%>
-    <input type=button onClick="parent.location='ukraineMap.html?interest=1'" value='News' class="input">
+    <input type=button onClick="parent.location='${page}'" value='Home' class="input">
 </div>
 
 <div id="chart_div_pio" style="width: 500px; height: 350px;"></div>
@@ -190,6 +190,6 @@
     <input type=button onClick="parent.location='ukraineMap.html?interest=9'" value='HUMOR' class="for_interest">
     <input type=button onClick="parent.location='ukraineMap.html?interest=10'" value='OTHER' class="for_interest">
 </div>
-<div id="chart_div" style="width: 600px; height: 400px;"></div>
+<div id="chart_div" style="width: 700px; height: 400px;"></div>
 </body>
 </html>

@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Spilna Sprava | Post Form</title>
+<title>Data Analysis Of Social Networks | Post Form</title>
 </head>
 <!-- style setting buttons  -->
 <style type="text/css">
@@ -43,6 +43,15 @@ input {
 .center {
 	width: 800px;
 	margin: 0 auto;
+}
+.for_statistics_link {
+    height: 40px;
+    width: 190px;
+    cursor: pointer;
+    color: teal;
+    font-size: 10px;
+    font-family: Verdana;
+    font-weight: bold;
 }
 </style>
 
@@ -79,13 +88,6 @@ input {
 	        window.location.href = "/signin";
 	    }
 
-    function newDoc() {
-        window.location.assign("http://localhost:8080/ukrainMap")
-    }
-    function Redirect(id, interes) {
-        window.location="http://localhost:8080/selectInterest?id="+id;
-    }
-
 
 </script>
 		<br>
@@ -104,12 +106,12 @@ input {
 				<c:out value="${user.name}" />
 			</c:forEach>
 		</c:if>
-		 :)</div>
+		 | <input type="button" value="Logout" onclick="logout()"></div>
 		<br>
 		<br>
         <%--<input id="cb" type="checkbox" onchange="window.location.href='http://google.com/'">--%>
         <div>
-            <input type=button onClick="parent.location='ukraineMap.html'" value='Statistic' class="for_map_link">
+            <input type=button onClick="parent.location='ukraineMap?page=post'" value='Click for display your Statistics' class="for_statistics_link">
         </div>
 
 		<!-- After saving the message is redirected /savePost -->
@@ -120,16 +122,19 @@ input {
 			<table width="400px" height="150px">
 				<tr>
 					<td><form>
-							<div style="color: teal; font-size: 30px">enter your post</div>
+							<div style="color: teal; font-size: 30px">create post on Facebook</div>
 							<!-- Text block -->
 							<textarea name="post" rows=7 cols=50></textarea>
 							<!-- Button -->
 							<input  type="submit" value="Send">
-							<input  type="reset">
+							<input  type="reset" value="Reset">
 
-						</form> <br>
+						</form>
+                        <br><br>
 						<!-- a table that shows a limited number of records -->
-						<center>
+                        <div style="color: teal; font-size: 30px">Your's posts list from Facebook</div>
+                        <br><br>
+
 							<display:table id="row" name="post" requestURI="" style="width: 250%;text-align: left;word-wrap:break-word;" pagesize="10"
 								export="true">
 								<display:column property="id" title="Id" sortable="true"
@@ -153,27 +158,12 @@ input {
 									<input type=button onClick="parent.location='selectInterest.html?id=${row.id}&interest=10'" value='OTHER' class="for_interest">
 
 									</div>
-									<%--<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=1" >News</a>--%>
-                                    <%--<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2">Politics</a>--%>
-                                    <%--<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2">GAMES</a>--%>
-                                    <%--<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2">MUSIC</a>--%>
-                                    <%--<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2">SPORT</a>--%>
-                                    <%--<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2">SCIENCE</a>--%>
-                                    <%--<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2">BUSINESS</a>--%>
-                                    <%--<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2">CINEMA</a>--%>
-                                    <%--<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2">HUMOR</a>--%>
-                                    <%--<a href="http://localhost:8080/selectInterest?id=${row.id}&interest=2">OTHER</a>--%>
 								</display:column>
 							</display:table>
 
-						</center></td>
+						</td>
 				</tr>
 			</table>
-
-			<p>
-				<input type="button" value="Logout" onclick="logout()">
-                <input type="button" value="Load new document" onclick="newDoc()">
-			</p>
 		</form:form>
 </body>
 </html>
