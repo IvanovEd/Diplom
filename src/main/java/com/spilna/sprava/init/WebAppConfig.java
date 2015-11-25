@@ -1,10 +1,5 @@
 package com.spilna.sprava.init;
 
-import java.util.Properties;
-
-import javax.annotation.Resource;
-import javax.sql.DataSource;
-
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -15,6 +10,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
+
+import javax.annotation.Resource;
+import javax.sql.DataSource;
+import java.util.Properties;
 /**
  * Configuration file with beans provide transaction management.
  * @author Ivanov Eduard
@@ -91,4 +90,15 @@ public class WebAppConfig {
 		resolver.setViewClass(JstlView.class);
 		return resolver;
 	}
+//    @Bean
+//    public FilterRegistrationBean filterRegistrationBean() {
+//
+//        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+//        filter.setEncoding("UTF-8");
+//
+//        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+//        registrationBean.setFilter(filter);
+//        registrationBean.addUrlPatterns("/*");
+//        return registrationBean;
+//    }
 }

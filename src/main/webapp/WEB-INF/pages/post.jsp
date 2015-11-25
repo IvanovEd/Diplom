@@ -8,7 +8,7 @@
 
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
 <title>Data Analysis Of Social Networks | Post Form</title>
 </head>
 <!-- style setting buttons  -->
@@ -33,7 +33,7 @@ input {
 }
 .for_interest {
 		height: 30px;
-		width: 67px;
+		width: 69px;
 		cursor: pointer;
 		color: teal;
 		font-size: 9px;

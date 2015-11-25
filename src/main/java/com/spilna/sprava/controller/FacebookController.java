@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.spilna.sprava.businesslogic.enums.Interest;
 import com.spilna.sprava.businesslogic.utils.Utils;
 
 import static com.spilna.sprava.businesslogic.enums.Oblast.*;
@@ -148,10 +149,10 @@ public class FacebookController {
      * @throws IOException
      */
     @RequestMapping(value = "/savePost", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView saveUserMessage(@ModelAttribute("post") Post post, @RequestParam String userId)
+    public ModelAndView saveUserMessage(@ModelAttribute("post") String post, @RequestParam String userId)
             throws IOException {
 
-        postService.addMessage(this.getAccesToken(), post, userId);
+        //postService.addMessage(this.getAccesToken(), post, userId);
 
         System.out.println("Save User Message");
         return new ModelAndView("redirect:/post.html");// redirected
@@ -159,37 +160,75 @@ public class FacebookController {
     }
 
     @RequestMapping(value = "/ukraineMap", method = RequestMethod.GET)
-    public ModelAndView lookMap(@RequestParam(required = false)  Long interest, String page)
+    public ModelAndView lookMap(@RequestParam(required = false)  Long interest, String page, @RequestParam(required = false) String obl)
             throws IOException {
         ModelAndView modelAndView = new ModelAndView("ukrainMap");
         List<Post> postList = postService.getAllPostInf();
         Map<String, String> map = new HashMap<>();
+        if (obl != null) {
+            List<String> users = new ArrayList<>();
+            for (Post post : postList) {
+                if (interest.toString().equals(post.getInterestOfPost().getInterest())) {
 
-        map.put(KUIVSKA.getValue(), "80");
-        map.put(ODESSA.getValue(), "44");
-        map.put(VINNITSA.getValue(), "55");
-        map.put(LVIVSKA.getValue(), "89");
-        map.put(IVANOFRANKIVSK.getValue(), "200");
-        map.put(ZHITOMERSKA.getValue(), "67");
-        map.put(HARKIVSKA.getValue(), "234");
-        map.put(SUMSKA.getValue(), "156");
-        map.put(DONETSKA.getValue(), "437");
-        map.put(LUGANSKA.getValue(), "777");
-        map.put(MIKOLAEVSKA.getValue(), "34");
-        map.put(VOLINSKA.getValue(), "123");
-        map.put(CHERNIGIVSKA.getValue(), "400");
-        map.put(CHERKASKA.getValue(), "542");
-        map.put(ZAKARPATSKA.getValue(), "160");
-        map.put(ZAPORIZHSKA.getValue(), "77");
-        map.put(KIROVOGRADSKA.getValue(), "99");
-        map.put(TERNOPILSKA.getValue(), "130");
-        map.put(HMELNITSKA.getValue(), "444");
-        map.put(DNIPROPETROVSKA.getValue(), "340");
-        map.put(POLTAVSKA.getValue(), "300");
-        map.put(RIVNENSKA.getValue(), "342");
-        map.put(HERSONSKA.getValue(), "345");
-        map.put(CHERNIVETSKA.getValue(), "234");
-        map.put(KRYM.getValue(), "111");
+                    if (CollectionUtils.isEmpty(users)) {
+                        users.add(post.getIdUser());
+                    } else if (!users.contains(post.getIdUser())) {
+                        users.add(post.getIdUser());
+                    }
+                }
+            }
+            map.put(VINNITSA.getValue(), String.valueOf(users.size()));
+            map.put(KUIVSKA.getValue(), "0");
+            map.put(ODESSA.getValue(), "0");
+            map.put(LVIVSKA.getValue(), "0");
+            map.put(IVANOFRANKIVSK.getValue(), "0");
+            map.put(ZHITOMERSKA.getValue(), "0");
+            map.put(HARKIVSKA.getValue(), "0");
+            map.put(SUMSKA.getValue(), "0");
+            map.put(DONETSKA.getValue(), "0");
+            map.put(LUGANSKA.getValue(), "0");
+            map.put(MIKOLAEVSKA.getValue(), "0");
+            map.put(VOLINSKA.getValue(), "0");
+            map.put(CHERNIGIVSKA.getValue(), "0");
+            map.put(CHERKASKA.getValue(), "0");
+            map.put(ZAKARPATSKA.getValue(), "0");
+            map.put(ZAPORIZHSKA.getValue(), "0");
+            map.put(KIROVOGRADSKA.getValue(), "0");
+            map.put(TERNOPILSKA.getValue(), "0");
+            map.put(HMELNITSKA.getValue(), "0");
+            map.put(DNIPROPETROVSKA.getValue(), "0");
+            map.put(POLTAVSKA.getValue(), "0");
+            map.put(RIVNENSKA.getValue(), "0");
+            map.put(HERSONSKA.getValue(), "0");
+            map.put(CHERNIVETSKA.getValue(), "0");
+            map.put(KRYM.getValue(), "0");
+        } else {
+            map.put(KUIVSKA.getValue(), "80");
+            map.put(ODESSA.getValue(), "44");
+            map.put(VINNITSA.getValue(), "55");
+            map.put(LVIVSKA.getValue(), "89");
+            map.put(IVANOFRANKIVSK.getValue(), "200");
+            map.put(ZHITOMERSKA.getValue(), "67");
+            map.put(HARKIVSKA.getValue(), "234");
+            map.put(SUMSKA.getValue(), "156");
+            map.put(DONETSKA.getValue(), "437");
+            map.put(LUGANSKA.getValue(), "777");
+            map.put(MIKOLAEVSKA.getValue(), "34");
+            map.put(VOLINSKA.getValue(), "123");
+            map.put(CHERNIGIVSKA.getValue(), "400");
+            map.put(CHERKASKA.getValue(), "542");
+            map.put(ZAKARPATSKA.getValue(), "160");
+            map.put(ZAPORIZHSKA.getValue(), "77");
+            map.put(KIROVOGRADSKA.getValue(), "99");
+            map.put(TERNOPILSKA.getValue(), "130");
+            map.put(HMELNITSKA.getValue(), "444");
+            map.put(DNIPROPETROVSKA.getValue(), "340");
+            map.put(POLTAVSKA.getValue(), "300");
+            map.put(RIVNENSKA.getValue(), "342");
+            map.put(HERSONSKA.getValue(), "345");
+            map.put(CHERNIVETSKA.getValue(), "234");
+            map.put(KRYM.getValue(), "111");
+        }
         modelAndView.addObject("valuesMap", map);
 
         List<PostRO> postROList = new ArrayList<>();

@@ -179,16 +179,16 @@
 
 <div id="chart_div_pio" style="width: 500px; height: 350px;"></div>
 <div >
-    <input type=button onClick="parent.location='ukraineMap.html?interest=1'" value='News' class="for_interest">
-    <input type=button onClick="parent.location='ukraineMap.html?interest=2'" value='Politics' class="for_interest">
-    <input type=button onClick="parent.location='ukraineMap.html?interest=3'" value='GAMES' class="for_interest">
-    <input type=button onClick="parent.location='ukraineMap.html?interest=4'" value='MUSIC' class="for_interest">
-    <input type=button onClick="parent.location='ukraineMap.html?interest=5'" value='SPORT' class="for_interest">
-    <input type=button onClick="parent.location='ukraineMap.html?interest=6'" value='SCIENCE' class="for_interest">
-    <input type=button onClick="parent.location='ukraineMap.html?interest=7'" value='BUSINESS' class="for_interest">
-    <input type=button onClick="parent.location='ukraineMap.html?interest=8'" value='CINEMA' class="for_interest">
-    <input type=button onClick="parent.location='ukraineMap.html?interest=9'" value='HUMOR' class="for_interest">
-    <input type=button onClick="parent.location='ukraineMap.html?interest=10'" value='OTHER' class="for_interest">
+    <input type=button onClick="parent.location='ukraineMap.html?interest=1&obl=Vin'" value='News' class="for_interest">
+    <input type=button onClick="parent.location='ukraineMap.html?interest=2&obl=Vin'" value='Politics' class="for_interest">
+    <input type=button onClick="parent.location='ukraineMap.html?interest=3&obl=Vin'" value='GAMES' class="for_interest">
+    <input type=button onClick="parent.location='ukraineMap.html?interest=4&obl=Vin'" value='MUSIC' class="for_interest">
+    <input type=button onClick="parent.location='ukraineMap.html?interest=5&obl=Vin'" value='SPORT' class="for_interest">
+    <input type=button onClick="parent.location='ukraineMap.html?interest=6&obl=Vin'" value='SCIENCE' class="for_interest">
+    <input type=button onClick="parent.location='ukraineMap.html?interest=7&obl=Vin'" value='BUSINESS' class="for_interest">
+    <input type=button onClick="parent.location='ukraineMap.html?interest=8&obl=Vin'" value='CINEMA' class="for_interest">
+    <input type=button onClick="parent.location='ukraineMap.html?interest=9&obl=Vin'" value='HUMOR' class="for_interest">
+    <input type=button onClick="parent.location='ukraineMap.html?interest=10&obl=Vin'" value='OTHER' class="for_interest">
 </div>
 <div id="chart_div" style="width: 700px; height: 400px;"></div>
 </body>
