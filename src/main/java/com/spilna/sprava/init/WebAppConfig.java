@@ -1,14 +1,6 @@
 package com.spilna.sprava.init;
 
-import java.util.Properties;
-
-import javax.annotation.Resource;
-import javax.sql.DataSource;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -18,6 +10,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
+
+import javax.annotation.Resource;
+import javax.sql.DataSource;
+import java.util.Properties;
 /**
  * Configuration file with beans provide transaction management.
  * @author Ivanov Eduard
@@ -29,6 +25,7 @@ import org.springframework.web.servlet.view.UrlBasedViewResolver;
 @ComponentScan("com.spilna.sprava")
 /**plugs in property file which located in the resource folder.*/
 @PropertySource("classpath:application.properties")
+@Import({ SecurityConfig.class })
 
 public class WebAppConfig {
 	
@@ -93,4 +90,15 @@ public class WebAppConfig {
 		resolver.setViewClass(JstlView.class);
 		return resolver;
 	}
+//    @Bean
+//    public FilterRegistrationBean filterRegistrationBean() {
+//
+//        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+//        filter.setEncoding("UTF-8");
+//
+//        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+//        registrationBean.setFilter(filter);
+//        registrationBean.addUrlPatterns("/*");
+//        return registrationBean;
+//    }
 }

@@ -1,9 +1,6 @@
 package com.spilna.sprava.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Description of the table "message"
@@ -19,11 +16,12 @@ import javax.persistence.Table;
  * entity in the database corresponds to a table named 'post'
  */
 @Table(name = "post")
-public class PostInf {
+public class Post {
 
 	@Id// Id describe table
 	@Column(name = "id")
-	private String id;
+	@GeneratedValue
+	private long id;
 	@Column(name = "id_post")// Definition of the column name
 	private String idPost;
 
@@ -32,14 +30,21 @@ public class PostInf {
 
 	@Column(name = "message")
 	private String post;
+    @OneToOne(mappedBy = "post", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    private InterestOfPost interestOfPost;
+//    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+//    @JoinColumn(name="id_user")
+//    private User user;
+
+    public Post() {}
 
 	// implementation of methods getters and setters
 
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -66,4 +71,12 @@ public class PostInf {
 		this.post = post;
 	}
 
+
+    public InterestOfPost getInterestOfPost() {
+        return interestOfPost;
+    }
+
+    public void setInterestOfPost(InterestOfPost interestOfPost) {
+        this.interestOfPost = interestOfPost;
+    }
 }

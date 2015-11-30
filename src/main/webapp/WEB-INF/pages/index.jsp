@@ -6,11 +6,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Spilna Sprava | Welcom Page</title>
+<title>Data Analysis Of Social Networks | Welcome Page</title>
 
 <!-- style setting buttons type="submit" -->
 <style>
-input[type="submit"] {
+input {
 	height: 200px;
 	width: 400px;
 	cursor: pointer;
@@ -27,7 +27,7 @@ input[type="submit"] {
 		<br>
 		<br>
 		<br>
-		<div style="color: teal; font-size: 30px">Spilna Sprava | Welcome Page</div>
+		<div style="color: teal; font-size: 30px">Data Analysis Of Social Networks | Welcome Page</div>
 		<br>
 		<br>
 		<!-- Button  is redirected /signin -->
@@ -37,6 +37,8 @@ input[type="submit"] {
 							<input type="submit" value="Facebook Connect" />
 
 		</form:form>
+        <br>
+        <input type=button onClick="parent.location='admin'" value='Signin As Admin' >
 
 	</center>
 </body>

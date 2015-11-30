@@ -1,9 +1,7 @@
 package com.spilna.sprava.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * @author Ivanov Eduard
@@ -16,23 +14,27 @@ import javax.persistence.Table;
  * entity in the database corresponds to a table named 'user'
  */
 @Table(name = "user")
-public class UserIn {
+public class User {
 	@Id
 	@Column(name = "id_user")
-	private String idUser;
+	private String id;
 	@Column(name = "name")
 	private String name;
 	@Column(name = "token")
 	private String token;
+	private String city;
+	private String region;
+//    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+//    private Set<Post> postSet;
 
 
 	
-	public String getIdU() {
-		return idUser;
+	public String getId() {
+		return id;
 	}
 
-	public void setIdU(String idU) {
-		this.idUser = idU;
+	public void setId(String idU) {
+		this.id = idU;
 	}
 
 	public String getName() {
@@ -51,4 +53,20 @@ public class UserIn {
 	public void setToken(String token) {
 		this.token = token;
 	}
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
 }

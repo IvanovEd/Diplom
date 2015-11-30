@@ -9,27 +9,28 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
 /**
  * 
  * @author Ivanov Eduard
  * @version 1.0
  */
-public class Initializer implements WebApplicationInitializer {
-  
-	public void onStartup(ServletContext servletContext)
-			throws ServletException {
-		AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
-		ctx.register(WebAppConfig.class);
+public class Initializer   extends AbstractAnnotationConfigDispatcherServletInitializer {
 
-		servletContext.addListener(new ContextLoaderListener(ctx));
+    @Override
+    protected Class<?>[] getRootConfigClasses() {
+        return new Class[] { WebAppConfig.class };
+    }
 
-		ctx.setServletContext(servletContext);
+    @Override
+    protected Class<?>[] getServletConfigClasses() {
+        return null;
+    }
 
-		Dynamic servlet = servletContext.addServlet("dispatcher",
-				new DispatcherServlet(ctx));
-		servlet.addMapping("/");
-		servlet.setLoadOnStartup(1);
-
-	}
+    @Override
+    protected String[] getServletMappings() {
+        return new String[] { "/" };
+    }
 
 }

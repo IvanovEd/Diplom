@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.spilna.sprava.dao.UserDAO;
 
-import com.spilna.sprava.model.UserIn;
+import com.spilna.sprava.model.User;
 
 /**
  * @author Ivanov Eduard
@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	/* Get user */
-	public List<UserIn> getUser(String id) {
+	public List<User> getUser(String id) {
 		return userDAO.getUser(id);
 
 	}
